@@ -1,0 +1,11 @@
+target/
+tex/*.aux
+tex/*.bbl
+tex/*.blg
+tex/*.log
+tex/*.toc
+release.properties
+.idea/
+*.iml
+.DS_Store
+*.properties
