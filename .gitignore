@@ -4,6 +4,7 @@ tex/*.bbl
 tex/*.blg
 tex/*.log
 tex/*.toc
+tex/*.gz
 release.properties
 .idea/
 *.iml
