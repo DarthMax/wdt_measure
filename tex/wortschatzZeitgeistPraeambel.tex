@@ -1,0 +1,46 @@
+\documentclass[fontsize=12pt, paper=a4, headinclude, twoside=false, parskip=half+, pagesize=auto, numbers=noenddot, open=right, toc=listof, toc=bibliography]{scrreprt}
+\usepackage[left=3cm, bottom=3cm, top=3cm]{geometry} % wenn es nicht anders geht sonst typearea (unten)
+ \usepackage{multirow} % Tabellen-Zellen über mehrere Zeilen
+\usepackage{multicol} % mehre Spalten auf eine Seite
+\usepackage{tabularx} % Für Tabellen mit vorgegeben Größen
+\usepackage[automark]{scrpage2} % Kopf- und Fußzeilen
+\usepackage[T1]{fontenc} % Ligaturen, richtige Umlaute im PDF 
+ \usepackage[utf8]{inputenc}% UTF8-Kodierung für Umlaute usw
+ 
+ 
+\begin{document}
+%\pagestyle{empty}
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Titelseite
+%\clearscrheadings\clearscrplain
+\begin{center}
+{\large Universität Leipzig}\\
+{\large Fakultät für Mathematik und Informatik}\\
+{\large Institut für Informatik}\\
+{\large Abteilung Automatische Sprachverarbeitung}\\
+\vspace{5mm}
+\begin{Large}
+\textbf{Wortschatz Zeitgeist}\\
+\vspace{5mm}
+Seminararbeit\\
+\vspace{5mm}
+\end{Large}
+\vspace{5mm}
+\begin{tabular}{ r l }
+{\bf Autoren:} 	& TBA\\
+			& Kießling, Max\\
+			& Otto, Wolfgang (2885214)\\
+{\bf Modul:} & Anwendungen Linguistische Informatik (10-202-2307)\\
+{\bf Abgabe:} & {\today}. (Sommersemester 2015)\\
+{\bf Betreuer:} & Maciej Janicki\\
+{\bf Seminarleiter:}&Prof. Dr. Uwe Quasthoff\\ 
+\end{tabular}\\
+\end{center}
+\clearpage
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Inhaltsverzeichnis
+%\pagestyle{useheadings} % normale Kopf- und Fußzeilen für den Rest
+%\pagenumbering{Roman} % große Römische Seitenummerierung
+\tableofcontents

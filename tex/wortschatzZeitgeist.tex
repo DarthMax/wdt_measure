@@ -1,0 +1,75 @@
+\input{wortschatzZeitgeist-Praeambel.tex}
+
+\begin{document}
+\ourtitlepage 
+\tableofcontents
+\clearpage
+\pagenumbering{arabic} % ab jetzt die normale arabische Nummerierung
+\chapter{Einleitung}
+\section{Aufgabenstellung}
+Es soll untersucht werden, welche Maße sinnvoll für die Generierung der Wörter des Tages sind. Eine Implementierung soll in SQL und für Zeitreihenuntersuchungen in R erfolgen.\\
+Desweiteren soll ein regelbasiertes Verfahren implementiert werden um Datumsangaben und andere strukturelle Worte zu filtern.\\
+\section{Status quo}
+\section{Vergleichbare Ansätze}
+Tagesaktuelle Wikiartikel\\
+google trends?\\
+
+
+\chapter{Das finden von Tagesaktuellen Wörter}
+\section{Maße zur Trend-Detection}
+\subsection{Relatives Vorkommen (Referenz)}
+Das Maß wird durch die Differenz des relativen Anteils eines Tokens an allen Tokens eines Tages und dem relativen Anteil eines Tokens an allen Tokens eines Vergleichskorpus bestimmt. 
+\begin{equation}
+sig_{referenz}(w) = p_{tag} - p_{jahr}
+\end{equation}
+
+\subsection{Poisson-Maß}
+
+Die Formel leitet sich aus der Poissonverteilung ab und beschreibt wie Wahrscheinlich es ist, dass die gemessene Tagesfrequenz beobachtet werden kann. 
+\begin{equation}
+sig_{poisson}(w) = \frac{k(\log(k)-\log(n\cdot p) -1 ))}{\log(n)}
+\end{equation}
+k:= Anzahl der Token von w in Tagesbericht\\
+n := Anzahl der Tokens in Tagesbericht\\
+p := relativer Anteil eines Tokens am Jahreskorpus\\
+Es ist das gleiche Maß wie in \cite[S. 338-340]{heyer06} beschrieben und hergeleitet. Hier aber nicht zum auffinden von signifikanten Kookurenzen, sondern zum auffinden von signifikanten Nennungen im Tageskorpus gegenüber einem Vergleichskorpus.\\
+
+\subsection{Termfrequenz inverse Dokumentenfrequenz (tf-idf)}
+ \begin{equation}
+sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{|documentdays(w)|})
+\end{equation}
+
+\subsection{Weitere Maße}
+Einbeziehung der Anzahl von Quellen.
+\subsection{Bewertung der Ma\ss e}
+Kriterien: Anteil niederfrequenter Wörter in der Top-Liste\\
+
+\section{Zeitreihenanalysen}
+\section{Cleaning}
+Es sollen Datumsangaben und evtl. neu auftauchende strukturelle Angaben ausgefiltert werden.\\
+Ansatz: Regelbasiert.\\
+Gibt es Maße, die solche Angaben strukturell ausschließen?
+
+
+\chapter{Implementierungen in SQL und R}
+\chapter{Ein empirischer Vergleich}
+
+\chapter{Bewertung und Zusammenfassung}
+
+
+
+
+
+
+
+
+
+
+
+ 
+\nocite{*}%alle nicht aufgeführte Literatur auch auffuehren
+\bibliographystyle{plaindin} %alphadin_martin
+\bibliography{wortschatzZeitgeistLit} 
+
+
+\end{document}
