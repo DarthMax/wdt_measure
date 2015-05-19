@@ -39,6 +39,31 @@ Es ist das gleiche Maß wie in \cite[S. 338-340]{heyer06} beschrieben und hergel
 sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{|documentdays(w)|})
 \end{equation}
 
+\subsection{Z-Score}
+Beschrieben in \cite{benattar2011trend}\\
+
+\begin{itemize}
+	\item{Wortfrequenz}\\
+		$f(w)_d :=$ Anzahl der Vorkommen von Wort $w$ an Datum $d$
+	\item{relative Worthäufigkeit}\\
+		Die relative Worthäufigkeit $p(w)_d$ berechnet sich durch: \\
+		$t_d :=$ Anzahl verschiedener Worte an Datum $d$
+		$$ p(w)_d = \frac{f(w)_d}{t_d} \\ $$
+	\item{Erwartungswert}\\
+		Der Erwartungswert $\bar{w}$ berechnet sich durch: \\
+		$N:=$ Anzahl der Tage in der betrachteten Zeitspanne
+		$$\bar{w}=\frac{1}{N} \sum p(w)_d$$
+	\item{Standartabweichung}\\
+		Die Standartabweichung $\sigma_w$ berechnet sich durch:
+		$$\sigma_w = \sqrt{\frac{1}{N} \sum (p(w)_d - \bar{w}^2}$$
+	\item{ZScore}\\
+		Der Zscore $Z(w)_d$ misst die Abweichung der relativen Worthäufigkeit vom Erwartungswert in Vielfachen der Standartabweichung.
+		$$Z(w)_d= \frac{p(w)_d - \bar{w}}{\sigma_w}$$		
+		
+\end{itemize}
+
+
+
 \subsection{Weitere Maße}
 Einbeziehung der Anzahl von Quellen.
 \subsection{Bewertung der Ma\ss e}
