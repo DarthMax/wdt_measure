@@ -40,8 +40,9 @@ sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{|documentdays(w)|})
 \end{equation}
 
 \subsection{Z-Score}
-Beschrieben in \cite{benattar2011trend}\\
+Benattar et al. beschreiben in \cite{benattar2011trend} einen Ansatz zur Trend-Erkennung basierend auf dem Z-Score. Dabei beziehen Sie neben der relativen Worthäufigkeit noch die Anzahl der Tage ein an denen ein Wort mindestens einmal auftritt, um so das 0-Frequenz-Problem zu umgehen.
 
+\subsubsection{Berechnung}
 \begin{itemize}
 	\item{Wortfrequenz}\\
 		$f(w)_d :=$ Anzahl der Vorkommen von Wort $w$ an Datum $d$
@@ -59,8 +60,23 @@ Beschrieben in \cite{benattar2011trend}\\
 	\item{ZScore}\\
 		Der Zscore $Z(w)_d$ misst die Abweichung der relativen Worthäufigkeit vom Erwartungswert in Vielfachen der Standartabweichung.
 		$$Z(w)_d= \frac{p(w)_d - \bar{w}}{\sigma_w}$$		
+	\item{Auftrittshäufigkeit}\\
+		Die Auftrittshäufigkeit $Po(w)$ gibt an wie vielen Tagen innerhalb des betrachteten Zeitraums das Wort mindestens einmal auftritt:\\
+		$nbD(w) :=$ Anzahl der Tage an denen $w$ vorkommt//
+		$c_d:=$ Anzahl der Tage innerhalb des betrachteten Zeitraums
+		$$Po(w)=\frac{nbD(w}{c_d}$$
+	\item{Schwellwerte}
+		Zur besseren Unterscheidung echter Trends von statistischen Anomalien schlagen Benattar et. al. vor die Worte anhand ihrer Auftrittshäufigkeit zu clustern. Den Clustern werden dabei Z-Score-Schwellwerte zugeordnet. Überschreitet der Z-Score eines Wortes den Schwellwert seines Clusters wird dieses Wort als signifikant und somit als Trend eingestuft. Cluster mit niedriger Auftrittshäufigkeit erhalten dabei höhere Schwellwerte. Je häufiger ein Wort auftritt desto niedriger wird der Schwellwert. 
+		
 		
 \end{itemize}
+
+\subsubsection{Vorgehen}
+\begin{enumerate}
+	\item Für jedes Wort in $w$ in $d$ berechne $Z(w)$
+	\item 
+\end{enumerate}
+
 
 
 
