@@ -9,7 +9,7 @@ CREATE TABLE aliss15a_words (
     standard_derivation FLOAT
 );
 
--- Tablle für vorberechnete relative Häufigkeiten
+-- Tabelle für vorberechnete relative Häufigkeiten
 CREATE TABLE aliss15a_daily_words (
     w_id INT(10) UNSIGNED,
     date date,
