@@ -13,3 +13,10 @@
  * Doku
  * Werte speichern in der Tabelle
  * Tests auf Wörter des Tages
+
+ Anmerkungen Wolf:
+ * wie machst Du die Abfrage über mehrere Wörter?
+    Willst Du für jedes Wort eine eigene SQL-Abfrage machen?
+ * Was machst Du, wenn Wörter an einzelnen Tagen nicht auftauchen?
+    Beispiel: 'Goethe'
+    Ich glaube, im Moment wird der fehlende Tag einfach übersprungen.
