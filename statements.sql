@@ -9,7 +9,7 @@ CREATE TABLE aliss15a_words (
     standard_derivation FLOAT
 );
 
--- Tablle für vorberechnete relative Häufigkeiten
+-- Tabelle für vorberechnete relative Häufigkeiten
 CREATE TABLE aliss15a_daily_words (
     w_id INT(10) UNSIGNED,
     date date,
@@ -27,7 +27,7 @@ CREATE TABLE aliss15a_daily_words (
 select @der_id:=(select w_id from words where word='der');
 
 INSERT INTO aliss15a_daily_words (w_id,date,relative_freq) (
-    SELECT w_id, daily_words.date, (daily_words.freq/daily_der.freq) 
+    SELECT w_id, daily_words.date, (freq/daily_sums.sum) 
         FROM daily_words 
             JOIN (SELECT date, freq FROM daily_words WHERE w_id=@der_id) AS daily_der ON daily_der.date=daily_words.date
 ) ON DUPLICATE KEY UPDATE relative_freq=values(relative_freq);

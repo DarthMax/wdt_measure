@@ -11,3 +11,4 @@ release.properties
 *.iml
 .DS_Store
 *.properties
+*.csvprop
