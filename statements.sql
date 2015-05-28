@@ -53,6 +53,7 @@ INSERT INTO aliss15a_words (w_id,relative_document_frequency) (
 
 
 -- Calculate Z-Score pro Wort und Tag für 2015
+-- ACHTUNG @max from wolf: JOIN verschluckt Woerter, die  nicht in 2014 sind (LEFT OUTER JOIN?)
 INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
     SELECT now.w_id, now.date, 
             ((now.relative_freq - ref_aliss.mean) / ref_aliss.standard_derivation)
