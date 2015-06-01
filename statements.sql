@@ -93,3 +93,49 @@ SELECT
         WHERE now.date=Date("2015-01-01") AND ((now.relative_freq > (@threshold*10) AND ref_aliss.relative_document_frequency < 0.1) OR ref_aliss.relative_document_frequency >= 0.1)  
         ORDER BY now.z_score desc
         LIMIT 100;
+        
+        
+-- TF IDF
+-- ======
+
+-- INSERT tf_idf to aliss15a_daily_words for all dates
+INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
+    SELECT now.date, 
+        now.w_id, 
+        ref.word,  
+        now.relative_freq * log(1/ref_aliss.relative_document_frequency) AS tf_idf
+        FROM  aliss15a_daily_words AS now
+        LEFT OUTER JOIN words as now_words on now_words.w_id = now.w_id
+        LEFT OUTER JOIN deu_news_2014.words as ref on now_words.word = ref.word
+        LEFT OUTER JOIN deu_news_2014.aliss15a_words as ref_aliss on ref.w_id = ref_aliss.w_id
+        ORDER BY    tf_idf 
+        DESC 
+        LIMIT 20 ;
+) ON DUPLICATE KEY UPDATE tf_idf=values(tf_idf); 
+
+
+-- POISSON NEU 
+-- ===========
+
+ 
+SELECT @total_frequence_2014 := (
+    SELECT       SUM(freq) 
+    FROM         deu_news_2014.words 
+    WHERE        w_id >  30
+    ) AS total_freq_2014;
+
+INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
+    SELECT  words2015.w_id, 
+            day.freq * (log(day.freq)-log(daily_freq_sums.freq_sum * (year.freq+day.freq)/@total_frequence_2014)-1) / log(daily_freq_sums.freq_sum) AS poisson 
+FROM        daily_words day
+            LEFT OUTER JOIN  words words2015 
+            ON               words2015.w_id=day.w_id 
+            LEFT OUTER JOIN   deu_news_2014.words year 
+            ON                words2015.word = year.word 
+            JOIN  ( SELECT       date, SUM(freq) freq_sum
+                    FROM         daily_words 
+                    WHERE w_id > 30
+                    GROUP BY date) daily_freq_sums 
+            ON daily_freq_sums.date = day.date
+) ON DUPLICATE KEY UPDATE poisson=values(poisson);
+
