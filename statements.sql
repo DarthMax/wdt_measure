@@ -116,7 +116,8 @@ INSERT INTO aliss15a_daily_words (w_id, date, tf_idf) (
 ) ON DUPLICATE KEY UPDATE tf_idf=VALUES(tf_idf); 
 
 
--- POISSON NEU  (inkl freqration neu)
+-- POISSON NEU  (inkl freqration neu) 
+-- (23 Minuten fuer ganz 2015) 
 -- ==================================
 
  
@@ -153,4 +154,7 @@ INSERT INTO aliss15a_daily_words (w_id, date, poisson, freqratio) (
 ALTER TABLE aliss15a_daily_words ADD KEY(w_id); -- nicht mehr noetig, wenn foreign key bei CREATE TABLE angegeben wird
 ALTER TABLE aliss15a_daily_words ADD KEY(date); -- 
 
+ 
+ 
+ 
  
