@@ -63,3 +63,4 @@ SELECT words.word, words.w_id, date
         JOIN deu_news_2014.words as ref on now_words.word = ref.word
         JOIN deu_news_2014.aliss15a_words as ref_aliss on ref.w_id = ref_aliss.w_id
 ) ON DUPLICATE KEY UPDATE z_score=values(z_score);
+

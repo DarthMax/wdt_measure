@@ -6,7 +6,9 @@ CREATE TABLE aliss15a_words (
     w_id INT(10) UNSIGNED PRIMARY KEY,
     relative_document_frequency FLOAT, -- Anzahl der Tage an denen wort Vorkommt / 365ish
     mean FLOAT,
-    standard_derivation FLOAT
+    standard_derivation FLOAT,
+    FOREIGN KEY (w_id)  
+        REFERENCES words(w_id),
 );
 
 -- Tabelle für vorberechnete relative Häufigkeiten
@@ -17,7 +19,10 @@ CREATE TABLE aliss15a_daily_words (
     z_score FLOAT,
     tf_idf FLOAT,
     poisson FLOAT,
-    PRIMARY KEY(w_id, date)
+    PRIMARY KEY(w_id, date),
+    FOREIGN KEY (w_id)  
+        REFERENCES daily_words(w_id),
+    INDEX (date)
 );
 
 
@@ -139,3 +144,12 @@ FROM        daily_words day
             ON daily_freq_sums.date = day.date
 ) ON DUPLICATE KEY UPDATE poisson=values(poisson);
 
+
+
+
+
+-- INDEXIERUNG VERBESSERN
+-- Auf der Daily_words sollte ein index auf w_id und ein index auf date liegen um die Abfragen schneller zu machen
+-- Habe indexierung in CREATE TABLE aufgenommen (@wolfo)
+ALTER TABLE aliss15a_daily_words ADD KEY(w_id); -- nicht mehr noetig, wenn foreign key bei CREATE TABLE angegeben wird
+ALTER TABLE aliss15a_daily_words ADD KEY(date); -- 
