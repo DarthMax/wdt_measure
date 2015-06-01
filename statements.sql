@@ -11,7 +11,7 @@ CREATE TABLE aliss15a_words (
         REFERENCES words(w_id),
 );
 
--- Tabelle für vorberechnete relative Häufigkeiten
+-- Tabelle für vorberechnete relative Häufigkeiten, etc..
 CREATE TABLE aliss15a_daily_words (
     w_id INT(10) UNSIGNED,
     date date,
@@ -19,6 +19,7 @@ CREATE TABLE aliss15a_daily_words (
     z_score FLOAT,
     tf_idf FLOAT,
     poisson FLOAT,
+    freqratio FLOAT,
     PRIMARY KEY(w_id, date),
     FOREIGN KEY (w_id)  
         REFERENCES daily_words(w_id),
@@ -60,7 +61,7 @@ INSERT INTO aliss15a_words (w_id,relative_document_frequency) (
 
 
 -- Calculate Z-Score pro Wort und Tag für 2015
--- ACHTUNG @max from wolf: JOIN verschluckt Woerter, die  nicht in 2014 sind (LEFT OUTER JOIN?)
+-- ACHTUNG @max from @wolfo: JOIN verschluckt Woerter, die  nicht in 2014 sind (LEFT OUTER JOIN?)
 INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
     SELECT 
             now.w_id,
@@ -104,7 +105,7 @@ SELECT
 -- ======
 
 -- INSERT tf_idf to aliss15a_daily_words for all dates
-INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
+INSERT INTO aliss15a_daily_words (w_id, date, tf_idf) (
     SELECT now.date, 
         now.w_id, 
         ref.word,  
@@ -116,11 +117,11 @@ INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
         ORDER BY    tf_idf 
         DESC 
         LIMIT 20 ;
-) ON DUPLICATE KEY UPDATE tf_idf=values(tf_idf); 
+) ON DUPLICATE KEY UPDATE tf_idf=VALUES(tf_idf); 
 
 
--- POISSON NEU 
--- ===========
+-- POISSON NEU  (inkl freqration neu)
+-- ==================================
 
  
 SELECT @total_frequence_2014 := (
@@ -129,10 +130,11 @@ SELECT @total_frequence_2014 := (
     WHERE        w_id >  30
     ) AS total_freq_2014;
 
-INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
+INSERT INTO aliss15a_daily_words (w_id, date, poisson, freqratio) (
     SELECT  words2015.w_id, 
+            freqratio = (@total_frequence_2014/daily_freq_sums.freq_sum) * day.freq / year.freq AS freqratio,
             day.freq * (log(day.freq)-log(daily_freq_sums.freq_sum * (year.freq+day.freq)/@total_frequence_2014)-1) / log(daily_freq_sums.freq_sum) AS poisson 
-FROM        daily_words day
+    FROM    daily_words day
             LEFT OUTER JOIN  words words2015 
             ON               words2015.w_id=day.w_id 
             LEFT OUTER JOIN   deu_news_2014.words year 
@@ -142,7 +144,7 @@ FROM        daily_words day
                     WHERE w_id > 30
                     GROUP BY date) daily_freq_sums 
             ON daily_freq_sums.date = day.date
-) ON DUPLICATE KEY UPDATE poisson=values(poisson);
+) ON DUPLICATE KEY UPDATE poisson=VALUES(poisson), freqratio = VALUES(freqratio);
 
 
 
@@ -153,3 +155,5 @@ FROM        daily_words day
 -- Habe indexierung in CREATE TABLE aufgenommen (@wolfo)
 ALTER TABLE aliss15a_daily_words ADD KEY(w_id); -- nicht mehr noetig, wenn foreign key bei CREATE TABLE angegeben wird
 ALTER TABLE aliss15a_daily_words ADD KEY(date); -- 
+
+ALTER TABLE aliss15a_daily_words ADD freqratio FLOAT;
