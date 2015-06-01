@@ -104,19 +104,15 @@ SELECT
 -- TF IDF
 -- ======
 
--- INSERT tf_idf to aliss15a_daily_words for all dates
+-- INSERT tf_idf to aliss15a_daily_words for all dates (time: 2015 17 min)
 INSERT INTO aliss15a_daily_words (w_id, date, tf_idf) (
-    SELECT now.date, 
-        now.w_id, 
-        ref.word,  
-        now.relative_freq * log(1/ref_aliss.relative_document_frequency) AS tf_idf
-        FROM  aliss15a_daily_words AS now
-        LEFT OUTER JOIN words as now_words on now_words.w_id = now.w_id
-        LEFT OUTER JOIN deu_news_2014.words as ref on now_words.word = ref.word
-        LEFT OUTER JOIN deu_news_2014.aliss15a_words as ref_aliss on ref.w_id = ref_aliss.w_id
-        ORDER BY    tf_idf 
-        DESC 
-        LIMIT 20 ;
+    SELECT  now.w_id,
+            now.date,  
+            now.relative_freq * log(1/ref_aliss.relative_document_frequency) AS tf_idf
+            FROM  aliss15a_daily_words AS now
+            LEFT OUTER JOIN words as now_words on now_words.w_id = now.w_id
+            LEFT OUTER JOIN deu_news_2014.words as ref on now_words.word = ref.word
+            LEFT OUTER JOIN deu_news_2014.aliss15a_words as ref_aliss on ref.w_id = ref_aliss.w_id
 ) ON DUPLICATE KEY UPDATE tf_idf=VALUES(tf_idf); 
 
 
@@ -132,8 +128,9 @@ SELECT @total_frequence_2014 := (
 
 INSERT INTO aliss15a_daily_words (w_id, date, poisson, freqratio) (
     SELECT  words2015.w_id, 
-            freqratio = (@total_frequence_2014/daily_freq_sums.freq_sum) * day.freq / year.freq AS freqratio,
-            day.freq * (log(day.freq)-log(daily_freq_sums.freq_sum * (year.freq+day.freq)/@total_frequence_2014)-1) / log(daily_freq_sums.freq_sum) AS poisson 
+            day.date,
+            day.freq * (log(day.freq)-log(daily_freq_sums.freq_sum * (year.freq+day.freq)/@total_frequence_2014)-1) / log(daily_freq_sums.freq_sum) AS poisson,
+            freqratio = (@total_frequence_2014/daily_freq_sums.freq_sum) * day.freq / year.freq AS freqratio 
     FROM    daily_words day
             LEFT OUTER JOIN  words words2015 
             ON               words2015.w_id=day.w_id 
@@ -156,4 +153,4 @@ INSERT INTO aliss15a_daily_words (w_id, date, poisson, freqratio) (
 ALTER TABLE aliss15a_daily_words ADD KEY(w_id); -- nicht mehr noetig, wenn foreign key bei CREATE TABLE angegeben wird
 ALTER TABLE aliss15a_daily_words ADD KEY(date); -- 
 
-ALTER TABLE aliss15a_daily_words ADD freqratio FLOAT;
+ 
