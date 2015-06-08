@@ -62,10 +62,11 @@ get_measures_from_day <- function (date, measure, limit) {
   query = paste("SELECT * ",
                 "FROM aliss15a_daily_words dw  ",
                 "JOIN words  ",
-                "JOIN daily_words ",
                 "ON dw.w_id=words.w_id ",
+                "JOIN daily_words ",
+                "ON dw.w_id=daily_words.w_id AND dw.date=daily_words.date",
                 "WHERE dw.date=Date( '", date,  "' ) ",
-                "ORDER BY dw.",measure,
+                "ORDER BY ",measure,
                 " DESC LIMIT ", limit,
                 sep='')
   print(query)
@@ -73,18 +74,38 @@ get_measures_from_day <- function (date, measure, limit) {
   fetch(response, n=-1)
 }
 
+# Clear Resultset
+# dbClearResult(dbListResults(mydb)[[1]])
+day <- "2015-05-01"
+tf_idf <- get_measures_from_day(day, "dw.tf_idf", "10")
+poisson <- get_measures_from_day(day, "dw.poisson", "100")
+poisson_old <- get_measures_from_day(day, "daily_words.poisson", "100")
+freqratio <- get_measures_from_day(day, "dw.freqratio", "100")
+freqratio_old <- get_measures_from_day(day, "daily_words.freqratio", "100")
+z_score <- get_measures_from_day(day, "dw.z_score", "100")
 
-tf_idf <- get_measures_from_day("2015-05-01", "tf_idf", "1000")
-poisson <- get_measures_from_day("2015-05-01", "poisson", "10")
-freqratio <- get_measures_from_day("2015-05-01", "freqratio", "100")
-z_score <- get_measures_from_day("2015-05-01", "z_score", "1000")
+#versuchSQL <- "SELECT * FROM aliss15a_daily_words dw  JOIN words ON dw.w_id=words.w_id  WHERE dw.date=Date('15-04-01') ORDER BY dw.tf_idf DESC LIMIT 100"
+#versuch2SQL <- "SELECT * FROM (SELECT * FROM aliss15a_daily_words WHERE date=Date( '15-03-01')) dw  JOIN words ON dw.w_id=words.w_id ORDER BY dw.tf_idf DESC LIMIT 100"
+#response = dbSendQuery(mydb, versuchSQL)
+#fetch(response, n=-1)
+
 
 #freqratio <- get_measures_from_day("2015-05-01", "freqratio", "10")
-all_meassures <- cbind(tf_idf, poisson, z_score, freqratio)
-multiple_average_overlap(all_meassures)
+all_meassures <- cbind(tf_idf$word, poisson$word, z_score$word, freqratio$word)
+average_overlap_data <- multiple_average_overlap(all_meassures)
+average_overlap_data <- as.data.frame(average_overlap_data)
+colnames(average_overlap_data) <- c("List","List_to_compare", "average_overlap")
+average_overlap_data$List <- as.factor(average_overlap_data$List)
+levels(average_overlap_data$List) <- c("tf_idf", "poisson", "z-score", "freqratio")
+average_overlap_data$List_to_compare <- as.factor(average_overlap_data$List_to_compare)
+levels(average_overlap_data$List_to_compare) <- c( "poisson", "z-score", "freqratio")
 
-versuch <- data.frame(all_meassures)
-erg <- multiple_average_overlap(versuch)
+average_overlap_data
 
-colnames(erg) <- cbind("measure_1", "measure_2", "average overlap")
-colnames(erg) <- cbind("tf_idf", "poisson", "z_score")
+# Plot as graph
+library(igraph)
+xlist <- read.graph("http://www.ats.ucla.edu/stat/data/elist1.txt", format = "edgelist")
+str(xlist)
+ plot.igraph(xlist)
+ plot.igraph(graph(t(average_overlap[, 1:2]), directed=FALSE ))
+??igraph
