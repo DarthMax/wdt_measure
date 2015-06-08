@@ -1,4 +1,4 @@
-
+	
 -- in deu_news_2014
 
 -- Tabelle für vorberechnete Werte
@@ -151,7 +151,7 @@ INSERT INTO aliss15a_daily_words (w_id, date, poisson, freqratio) (
 -- INDEXIERUNG VERBESSERN
 -- Auf der Daily_words sollte ein index auf w_id und ein index auf date liegen um die Abfragen schneller zu machen
 -- Habe indexierung in CREATE TABLE aufgenommen (@wolfo)
-ALTER TABLE aliss15a_daily_words ADD KEY(w_id); -- nicht mehr noetig, wenn foreign key bei CREATE TABLE angegeben wird
+ALTER TABLE aliss15a_daily_words ADD KEY(w_id) USING HASH; -- nicht mehr noetig, wenn foreign key bei CREATE TABLE angegeben wird
 ALTER TABLE aliss15a_daily_words ADD KEY(date); -- 
 
  

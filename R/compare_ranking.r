@@ -52,16 +52,39 @@ test_multiple_average_overlap()
 ## Test on real data
 
 get_measures_from_day <- function (date, measure, limit) {
-  query = paste("SELECT word FROM aliss15a_daily_words dw  JOIN words  ON dw.w_id=words.w_id WHERE date=Date( '", date,  "' ) ORDER BY dw.",measure," DESC LIMIT ", limit, sep='')
+  query = paste("SELECT * FROM aliss15a_daily_words dw  JOIN words  ON dw.w_id=words.w_id WHERE date=Date( '", date,  "' ) ORDER BY dw.",measure," DESC LIMIT ", limit, sep='')
+  print(query)
+  response = dbSendQuery(mydb, query)
+  fetch(response, n=-1)
+}
+
+get_measures_from_day <- function (date, measure, limit) {
+  query = paste("SELECT * ",
+                "FROM aliss15a_daily_words dw  ",
+                "JOIN words  ",
+                "JOIN daily_words ",
+                "ON dw.w_id=words.w_id ",
+                "WHERE dw.date=Date( '", date,  "' ) ",
+                "ORDER BY dw.",measure,
+                " DESC LIMIT ", limit,
+                sep='')
+  print(query)
   response = dbSendQuery(mydb, query)
   fetch(response, n=-1)
 }
 
 
 tf_idf <- get_measures_from_day("2015-05-01", "tf_idf", "1000")
-poisson <- get_measures_from_day("2015-05-01", "poisson", "1000")
+poisson <- get_measures_from_day("2015-05-01", "poisson", "10")
+freqratio <- get_measures_from_day("2015-05-01", "freqratio", "100")
 z_score <- get_measures_from_day("2015-05-01", "z_score", "1000")
-#freqratio <- get_measures_from_day("2015-05-01", "freqratio", "10")
-all_meassures <- cbind(tf_idf, poisson, z_score)
 
+#freqratio <- get_measures_from_day("2015-05-01", "freqratio", "10")
+all_meassures <- cbind(tf_idf, poisson, z_score, freqratio)
 multiple_average_overlap(all_meassures)
+
+versuch <- data.frame(all_meassures)
+erg <- multiple_average_overlap(versuch)
+
+colnames(erg) <- cbind("measure_1", "measure_2", "average overlap")
+colnames(erg) <- cbind("tf_idf", "poisson", "z_score")
