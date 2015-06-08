@@ -51,12 +51,6 @@ test_multiple_average_overlap()
 
 ## Test on real data
 
-get_measures_from_day <- function (date, measure, limit) {
-  query = paste("SELECT * FROM aliss15a_daily_words dw  JOIN words  ON dw.w_id=words.w_id WHERE date=Date( '", date,  "' ) ORDER BY dw.",measure," DESC LIMIT ", limit, sep='')
-  print(query)
-  response = dbSendQuery(mydb, query)
-  fetch(response, n=-1)
-}
 
 get_measures_from_day <- function (date, measure, limit) {
   query = paste("SELECT * ",
@@ -64,7 +58,7 @@ get_measures_from_day <- function (date, measure, limit) {
                 "JOIN words  ",
                 "ON dw.w_id=words.w_id ",
                 "JOIN daily_words ",
-                "ON dw.w_id=daily_words.w_id AND dw.date=daily_words.date",
+                "ON dw.w_id=daily_words.w_id AND dw.date=daily_words.date ",
                 "WHERE dw.date=Date( '", date,  "' ) ",
                 "ORDER BY ",measure,
                 " DESC LIMIT ", limit,
@@ -77,12 +71,12 @@ get_measures_from_day <- function (date, measure, limit) {
 # Clear Resultset
 # dbClearResult(dbListResults(mydb)[[1]])
 day <- "2015-05-01"
-tf_idf <- get_measures_from_day(day, "dw.tf_idf", "10")
-poisson <- get_measures_from_day(day, "dw.poisson", "100")
-poisson_old <- get_measures_from_day(day, "daily_words.poisson", "100")
-freqratio <- get_measures_from_day(day, "dw.freqratio", "100")
-freqratio_old <- get_measures_from_day(day, "daily_words.freqratio", "100")
-z_score <- get_measures_from_day(day, "dw.z_score", "100")
+tf_idf <- get_measures_from_day(day, "dw.tf_idf", "1000")
+poisson <- get_measures_from_day(day, "dw.poisson", "1000")
+poisson_old <- get_measures_from_day(day, "daily_words.poisson", "1000")
+freqratio <- get_measures_from_day(day, "dw.freqratio", "1000")
+freqratio_old <- get_measures_from_day(day, "daily_words.freqratio", "1000")
+z_score <- get_measures_from_day(day, "dw.z_score", "1000")
 
 #versuchSQL <- "SELECT * FROM aliss15a_daily_words dw  JOIN words ON dw.w_id=words.w_id  WHERE dw.date=Date('15-04-01') ORDER BY dw.tf_idf DESC LIMIT 100"
 #versuch2SQL <- "SELECT * FROM (SELECT * FROM aliss15a_daily_words WHERE date=Date( '15-03-01')) dw  JOIN words ON dw.w_id=words.w_id ORDER BY dw.tf_idf DESC LIMIT 100"
@@ -91,21 +85,30 @@ z_score <- get_measures_from_day(day, "dw.z_score", "100")
 
 
 #freqratio <- get_measures_from_day("2015-05-01", "freqratio", "10")
-all_meassures <- cbind(tf_idf$word, poisson$word, z_score$word, freqratio$word)
+all_meassures <- cbind(tf_idf$word, poisson$word, z_score$word, freqratio$word, freqratio_old$word, poisson_old$word)
 average_overlap_data <- multiple_average_overlap(all_meassures)
+#Format data in data frame
 average_overlap_data <- as.data.frame(average_overlap_data)
 colnames(average_overlap_data) <- c("List","List_to_compare", "average_overlap")
 average_overlap_data$List <- as.factor(average_overlap_data$List)
-levels(average_overlap_data$List) <- c("tf_idf", "poisson", "z-score", "freqratio")
+levels(average_overlap_data$List) <- c("tf_idf", "poisson", "z-score", "freqratio","freqratio_old", "poisson_old" )
 average_overlap_data$List_to_compare <- as.factor(average_overlap_data$List_to_compare)
-levels(average_overlap_data$List_to_compare) <- c( "poisson", "z-score", "freqratio")
+levels(average_overlap_data$List_to_compare) <- c( "poisson", "z-score", "freqratio","freqratio_old", "poisson_old")
 
+#result
 average_overlap_data
 
-# Plot as graph
-library(igraph)
-xlist <- read.graph("http://www.ats.ucla.edu/stat/data/elist1.txt", format = "edgelist")
-str(xlist)
- plot.igraph(xlist)
- plot.igraph(graph(t(average_overlap[, 1:2]), directed=FALSE ))
-??igraph
+
+# data frame as tex table
+library(xtable)
+xtable(average_overlap_data, label = 'AvarageOverlapComparison', caption = 'Avarage Overlap Comparison')
+?xtable
+
+
+#save as tsv
+#header for tsv (to plot graph with d3
+colnames(average_overlap_data) <- c("source", "target", "value")
+write.table(average_overlap_data, file='Projects/Webprojects/wortschatzMitNeuemGraph/cooc-example/comparison.tsv', quote=FALSE, sep='\t',row.names = F)
+
+
+
