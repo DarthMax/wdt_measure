@@ -17,6 +17,7 @@
  Anmerkungen Wolf:
  * wie machst Du die Abfrage über mehrere Wörter?
     Willst Du für jedes Wort eine eigene SQL-Abfrage machen?
+    --> Ja das war zurzeit der Plan
  * Was machst Du, wenn Wörter an einzelnen Tagen nicht auftauchen?
     Beispiel: 'Goethe'
     Ich glaube, im Moment wird der fehlende Tag einfach übersprungen.
