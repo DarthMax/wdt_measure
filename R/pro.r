@@ -3,10 +3,10 @@ library(RMySQL)
 
 ## HIER DB DATEN EINTRAGEN !!!
 
-us="root"
-pw="ironwing"
-db="seminar"
-host="localhost"
+us=""
+pw=""
+db=""
+host=""
 
 #load db conf from file if file exists else use data from above
 # copy .wdt_measure_dbconf.csvprop.dist in working directory and add your data. Stor file without .dist
