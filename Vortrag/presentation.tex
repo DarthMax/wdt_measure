@@ -1,0 +1,100 @@
+\documentclass{beamer}
+\usepackage{framed}
+\usetheme[pageofpages=of,% String used between the current page and the
+                         % total page count.
+          bullet=circle,% Use circles instead of squares for bullets.
+          titleline=true,% Show a line below the frame title.
+          alternativetitlepage=true,% Use the fancy title page.
+          ]{Torino}
+
+\setbeamercovered{invisible}          
+\setbeamertemplate{section page}
+{
+	\huge{\insertsection}
+	 \textcolor{chameleongreen3}{\hrule height 1pt} 	
+  	\vspace{0px}
+}  
+\usepackage{pifont}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+
+
+\newcommand{\hiddencell}[2]{\action<#1->{#2}}
+% first argument: slide number to appear from, second argument: content of cell        
+
+\author[Otto, Döring, Kiessling]{Wolfgang Otto, Thomas Döring, Max Kießling}
+\title{Wortschatz Zeitgeist}
+\institute{Seminar Anwendungen der linguistischen Informatik}
+\date{16. Juni 2015}
+
+\begin{document}	
+\watermarkoff
+
+\begin{frame}[t,plain]
+	\titlepage
+\end{frame}
+
+\begin{frame}[t,plain]
+	\tableofcontents
+\end{frame}
+
+
+\section{Motivation}
+\begin{frame} \sectionpage \end{frame}
+
+
+\begin{frame}{Wortschatzprojekt}
+ \begin{itemize}
+ 	\item Bla
+ 	\item Foobar
+ 	\item Batz
+ \end{itemize}
+ 
+ \begin{definition}
+ 	Definition
+ \end{definition}
+ 
+ \begin{example}
+ 	Beispiel
+ \end{example}
+\end{frame}
+
+
+\section{Algorithmen}
+\begin{frame} \sectionpage \end{frame}
+
+\begin{frame}{Relative Häufigkeit}
+	Something about relative frequency
+\end{frame}
+
+\begin{frame}{TF/IDF}
+ 	Something about TF/IDF
+\end{frame}
+
+\begin{frame}{Poison}
+	Something about poison
+\end{frame}
+
+\begin{frame}{Z-Score}
+	Something about Z-score
+\end{frame}
+
+\begin{frame}{Zeitreihenanalyse}
+	Something about Zeitreihenanalyse
+\end{frame}
+
+\section{Vergleich und Auswertung}
+\begin{frame} \sectionpage \end{frame}
+
+\begin{frame}{Zusammenfassung}
+\end{frame}
+
+
+
+\begin{frame}[allowframebreaks]{Quellen}
+	\nocite{*}
+	\bibliographystyle{plaindin}
+    \bibliography{quellen}
+\end{frame}
+
+\end{document}
