@@ -40,6 +40,17 @@ Es ist das gleiche Maß wie in \cite[S. 338-340]{heyer06} beschrieben und hergel
 sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{|documentdays(w)|})
 \end{equation}
 
+\subsection{Termfrequenz inverse Dokumentenfrequenz inverse Quellenfrequenz (tf-idf-isf)}
+\emph{Idee: } W\"orter sind dann interessant, wenn sie an einem Tag in m;glichst vielen verschiedenen Quellen gennant werden.\\
+Als Quelle definieren wir die Serveradresse einer Quelle. Diese wird mittels eines regul\"aren Ausdrucks aus den zugeordneten Quellen in der MySQL-Datenbank ermittelt. Als Gesamtzahl der Quellen verwenden wir alle an einem Tag den W\"ortern zugeordnete Quellen.\\
+Das entstandene Signifikanzma\ss wird wie folgt definiert:
+ \begin{equation}
+sig_{tf idf isf}(w) = sig_{tf idf}(w) \cdot \log ( \frac{Q_d}{q_d(w)})
+\end{equation}
+Analog zur inversen Dokumentenfrequenz wird also das tf-idf-Signifikanzma\ss  mit dem Logarithmus der inversen relativen Anzahl der Quellenfrequenz multipliziert. $Q_d$ ist die Anzahl aller erw\"ahnten Quellen an einem Tag $d$ und $q_d()$ bildet ein Wort auf die Anzahl der Quellen ab, in denen das Wort an Tag $d$  erw\"ahnt wird. 
+
+
+
 \subsection{Z-Score}
 Benattar et al. beschreiben in \cite{benattar2011trend} einen Ansatz zur Trend-Erkennung basierend auf dem Z-Score. Dabei beziehen Sie neben der relativen Worthäufigkeit noch die Anzahl der Tage ein an denen ein Wort mindestens einmal auftritt, um so das 0-Frequenz-Problem zu umgehen.
 
