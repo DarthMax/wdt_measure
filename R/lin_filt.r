@@ -16,6 +16,7 @@ mydb = dbConnect(MySQL(), user=us, password=pw, dbname=db, host=host,port=port)
 
 from_date="2015-03-01";
 to_date="2015-03-30";
+i=0;
 
 # Erstelle ein Leeres Dateframe für den Zeitraum
 
@@ -25,7 +26,11 @@ dates[1]<-lapply(dates[1], as.character)
 
 print("Timeframe erstellt")
 
+
+
 ## Variablen Ende ##
+
+data_is_null=TRUE;
 
 ## Querys ##
 
@@ -57,6 +62,7 @@ do_query <- function(x){
 }
 
 
+data <- c();
 
 # Berechnet die Maße
 compute_data <- function(x) {
@@ -70,6 +76,8 @@ compute_data <- function(x) {
     word_data[,"lin_filt_3"] = lin_filt(word_data,4,3);
     
     dbWriteTable(mydb,"alis15a_r",word_data,append=T)
+    print(i);
+    i <<- i+1;
 }
 
 ## Funktionen Ende ##
@@ -79,6 +87,7 @@ do_query_without_data(q_drop_help_table)
 words = do_query(q_word_ids);
 print("Wörter wurden geholt");
 apply(words,c(1,2),compute_data)
+
 
 
 dbDisconnect(mydb)
