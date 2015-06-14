@@ -80,7 +80,51 @@
 \end{frame}
 
 \begin{frame}{Zeitreihenanalyse}
-	Something about Zeitreihenanalyse
+ \begin{definition}[Zeitreihenanalyse]
+ 	Unter einer Zeitreihe
+	versteht man die Entwicklung einer bestimmten Größe, deren Werte im Zeitablauf zu bestimmten Zeitpunkten oder für bestimmte Zeitintervalle erfasst und dargestellt
+	werden
+ \end{definition}
+	
+\end{frame}
+
+\begin{frame}{Maß: gleitender Mittelwert}
+	\begin{itemize}
+		\item Glättet Zeit oder Datenreihen
+		\item Erfolgt durch glätten hoher Frequenzanteile
+		\item Es gibt ein Raster der größe n		
+		\item Es werden n Tage zusammenaddiert und dann durch n geteilt
+	\end{itemize}
+	
+	Wie hilft uns das weiter?
+	
+	\begin{itemize}
+		\item Tritt ein Wort häufiger als sein Durchschnittswert an dem Tag auf kann das interessant sein.
+	\end{itemize}		
+	
+\end{frame}
+
+\begin{frame}{Erster Ansatz: R}
+	\begin{itemize}
+		\item Der erste Ansatz war ein R Programm welches den gleitenden Mittelwert ausrechnen sollte
+		\item Problem: R verarbeitet Wörter einzeln 
+		\item 3 Mio. Wörter $\rightarrow$ 3 Mio. Transaktionen = MySQL Overkill
+		\item Ausführungszeit würde mehrere Tage beanspruchen
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Beispiel}
+\includegraphics[scale=0.18]{Bilder/R.png}
+\end{frame}
+
+\begin{frame}{Zweiter Ansatz: MySQL}
+	\begin{itemize}
+		\item Der Zweite Ansatz ist es direkt in MySQL zu berechnen
+		\item Problem: Inner Join auf selbe Tabelle (ca. 20 Mio Zeilen)
+		\item Jeder Eintrag muss geprüft werden ob die Join Tabelle den Eintrag in der Größe des Rasters hat
+		\item Eine Datums Differenz Tabelle kann das ganze jedoch beschleunigen
+
+	\end{itemize}
 \end{frame}
 
 \section{Vergleich und Auswertung}
