@@ -92,6 +92,30 @@
 \end{frame}
 
 
+\begin{frame}{TF/IDF}
+ 	\emph{Idee: } Wir gewichten die Auftretensfrequenz eines Token an einem Tag mit dem Inversen einer Maßzahl, die Angibt an wie vielen Tagen im Referenzjahr das Wort erw\"ahnt wurde.\\
+	\emph{Modifikationen: } 
+	\begin{itemize}
+		\item{Relativierung der Frequenz auf Frequenz des h\"aufigsten Tokens am Tag (Vergleichbarkeit)}
+		\item{Logarithmieren des IDF-Wertes}
+	\end{itemize}
+	\emph{Formel:}
+	 \begin{equation}
+		sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{documentdays(w)})
+	\end{equation}
+	$k$: Frequenz eines Tokens an einem Tag
+	$K$: Alle Frequenzen an einem Tag
+\end{frame}
+
+\begin{frame}{TF-IDF Beispiel}
+% Hier Beispiel Flugzeug 2
+	\hspace{1cm}
+	  \begin{centering}
+	  \includegraphics[width=1\textwidth]{pictures/tfidfIllustration.png}
+	\end{centering}
+\end{frame}
+
+
 \begin{frame}{Poisson als Ma\ss}
 	\emph{Idee: } Modellierung der Wahrscheinlichkeit eine bestimmte Frequenz eines Tokens zu sehen. Wenn die Tagesfrequenz eines Tokens sehr unwahrschilich ist, ist das Token interessant.\\
 	\emph{Annahme: } Diese Wahrscheinlichkeiten sind Poisson-Verteilt.\\
@@ -151,31 +175,6 @@
 		\item{Zur \"Uberpr\"ufung sp\"ater mehr}
 	\end{itemize}
 \end{frame}
-
-
-\begin{frame}{TF/IDF}
- 	\emph{Idee: } Wir gewichten die Auftretensfrequenz eines Token an einem Tag mit dem Inversen einer Maßzahl, die Angibt an wie vielen Tagen im Referenzjahr das Wort erw\"ahnt wurde.\\
-	\emph{Modifikationen: } 
-	\begin{itemize}
-		\item{Relativierung der Frequenz auf Frequenz des h\"aufigsten Tokens am Tag (Vergleichbarkeit)}
-		\item{Logarithmieren des IDF-Wertes}
-	\end{itemize}
-	\emph{Formel:}
-	 \begin{equation}
-		sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{documentdays(w)})
-	\end{equation}
-	$k$: Frequenz eines Tokens an einem Tag
-	$K$: Alle Frequenzen an einem Tag
-\end{frame}
-
-\begin{frame}{TF-IDF Beispiel}
-% Hier Beispiel Flugzeug 2
-	\hspace{1cm}
-	  \begin{centering}
-	  \includegraphics[width=1\textwidth]{pictures/tfidfIllustration.png}
-	\end{centering}
-\end{frame}
-
 
 
 \begin{frame}{Z-Score}
