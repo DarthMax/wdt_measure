@@ -163,23 +163,75 @@
 	\end{centering}
 \end{frame}
 
-\begin{frame}{\emph{Einschub: }\\Wortzahl vs. Satzzahl zur Berechnung relativer Verh\"altnisse}
+\begin{frame}{Einschub: Wortzahl vs. Satzzahl}
+	Sowohl Wortzahl als auch die Satzzahl können Berechnung relativer Verhältnisse genutzt werden:\\
 	\begin{itemize}
 		\item{Bei der Referenz wird mit Satzzahlen gearbeitet}
 		
-		\item{Jeder Satz hat im Schnitt gleiche Anzahl von W\"ortern ($\approx 10$)\\
+		\item Jeder Satz hat im Schnitt gleiche Anzahl von Wörtern ($\approx 10$)\\
 			\begin{equation}
 				\frac{Satz_{heute}}{Satz_{jahr}} \approx \frac{Token_{heute}}{Token_{Jahr}}
-			\end {equation}
-			}
-		\item{Zur \"Uberpr\"ufung sp\"ater mehr}
+			\end{equation}
+	
+		\item Zur Überprüfung später mehr
 	\end{itemize}
 \end{frame}
 
 
 \begin{frame}{Z-Score}
-	Something about Z-score
+	\textbf{Grundidee:} Messe die Abweichung der Auftretenshäufigkeit vom Erwartungswert in Vielfachen der Standartabweichung.
+	
+	\begin{definition}[ZScore]
+		$$ sig_{zscore}(w) = \frac{f_{rel}(w) - E(w)}{\sigma(w)} $$
+	\end{definition}
+	
+	$f_{rel}(w)$: relative Häufigkeit des Wortes $w$ an diesem Tag \\
+	$E(w)$: Erwartungswert der relativen Häufigkeit von $w$ \\
+	$\sigma(w)$: Standartabweichung der relativen Häufigkeit von $w$
 \end{frame}
+
+
+\begin{frame}{Z-Score – Bracketing}
+	\textbf{Problem}: Verdoppelung der Frequenz für Worte mit durchschnittlich kleiner relativer Frequenz einfacher
+	$\Rightarrow$ Hohe Z-Score Werte können leichter erreicht werden \\
+	\textbf{Lösung}: 
+	\begin{enumerate}
+		\item Gruppierung der Worte anhand ihrer relativen Dokumentenhäufigkeit 
+		\item Zuweisen eines individuellen Korrekturwerts für jede Gruppe:
+	\end{enumerate}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|}
+			{[}0-5{[} & {[}5-10{[} & {[}10-20{[} & {[}20-30{[} & {[}30-40{[} \\
+			\hline
+			-20 & -25 & -15 & -12 & -10
+		\end{tabular}
+		
+		\begin{tabular}{|c|c|c|c|c|}
+			{[}40-50{[} & {[}50-60{[} & {[}60-70{[} & {[}70-80{[} & {[}80-100{[} \\
+			\hline
+			-10 & -9 & -8 & -6 & -5
+		\end{tabular}	
+	\end{center}		
+\end{frame}
+
+\begin{frame}{Z-Score – Zero-Frequency-Problem}
+	\textbf{Problem}: Worte im ersten Bracket haben bestenfalls an 5\% der Tage Frequenzen $> 0 \Rightarrow$ sehr geringer 			Erwartungswert und Standartabweichung \\
+
+	\textbf{Lösungsmöglichkeiten:}
+	\begin{itemize}
+		\item Lapace-Smoothing
+		\item Ignoriere alle Worte mit relativer Frequenz $<$ Schwellwert t \\
+		$t:$ Durchschnittliche relative Frequenz aller Worte mit relativer Dokumentenfrequenz $<0.1$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Z-Score Beispiel}
+	\hspace{1cm}
+	\begin{centering}
+		\includegraphics[width=1\textwidth]{pictures/zscore_flugzeug}
+	\end{centering}
+\end{frame}
+
 
 \begin{frame}{Zeitreihenanalyse}
  \begin{definition}[Zeitreihenanalyse]
