@@ -76,9 +76,9 @@
 \end{frame}
 
 \begin{frame}{Relative Häufigkeit}
-	\hspace{2cm}
 	  \begin{centering}
-	  \includegraphics[width=1\textwidth]{pictures/freqratioFlugzeug.png}
+	  % Bildgroesse: 600x 370 ganz gut 
+	  \includegraphics[width=1\textwidth]{pictures/relfreqFlugzeug.png}
 	\end{centering}
 \end{frame}
 
@@ -87,6 +87,7 @@
  	\item Erster Ansatz
  	\item Einfache Implementierung
  	\item Selten Auftretende W\"orter werden gegen\"uber anderen interessanten W\"ortern bevorteilt
+	\item{Positiv: Hochfrequente Worte werden selten hoch gerankt}
  \end{itemize}
 \end{frame}
 
@@ -104,19 +105,26 @@
 	$P_\lambda(k)$: Erwartete Wahrscheinlichkeit meine Beobachtung k
 \end{frame}
 
-\begin{frame}{Poisson-Maß}
+\begin{frame}{Poisson Verteilung}
 % Hier Beispiel Flugzeug
-	\hspace{2cm}
 	  \begin{centering}
-	  \includegraphics[width=1\textwidth]{pictures/freqratioFlugzeug.png}
+	  \includegraphics[width=1\textwidth]{pictures/poissonVerteilungFlugzeug.png}
 	\end{centering}
 \end{frame}
+\begin{frame}{Poisson Verteilung II}
+% Hier Beispiel Flugzeug
+	  \begin{centering}
+	  \includegraphics[width=1\textwidth]{pictures/logPoissonVerteilungFlugzeug.png}
+	\end{centering}
+\end{frame}
+
 
 \begin{frame}{Poisson als Ma\ss : Implementierung}
 	\begin{itemize}
  		\item Problem: Berechnung der Fakult\"at
  		\item Vergleichtbarkeit der Werte einzelner Tage untereinander 
  		\item Ziel: Hoher Rang soll einen hohen Wert haben ($-log$-Methode)
+		\item Wenn die Frequenz unterdurchschnittlich ist, soll kein hoher Wert erzeugt werden
 	 \end{itemize}
 	 \emph{Formel:}
 	 \begin{equation}
@@ -126,9 +134,8 @@
 
 \begin{frame}{Poisson-Verteilung}
 % Hier Beispiel Flugzeug 2
-	\hspace{1cm}
 	  \begin{centering}
-	  \includegraphics[width=1\textwidth]{pictures/freqratioFlugzeug.png}
+	  \includegraphics[width=1\textwidth]{pictures/poissonMeasureFlugzeug.png}
 	\end{centering}
 \end{frame}
 
