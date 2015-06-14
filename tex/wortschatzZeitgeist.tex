@@ -19,11 +19,15 @@ google trends?\\
 \chapter{Das finden von Tagesaktuellen Wörter}
 \section{Maße zur Trend-Detection}
 \subsection{Relatives Vorkommen (Referenz)}
-Das Maß wird durch die Differenz des relativen Anteils eines Tokens an allen Tokens eines Tages und dem relativen Anteil eines Tokens an allen Tokens eines Vergleichskorpus bestimmt. 
-\begin{equation}
-sig_{referenz}(w) = p_{tag} - p_{jahr}
-\end{equation}
-
+\emph{Idee: } Tokens, deren relatives Auftreten am gewählten Tag im Verhältnis zum relativen Auftreten im Referenzzeitaum (2014) besonders groß ist, sind interessante Wörter.\\ 
+	\emph{Formel: } 
+	\begin{equation}
+	sig_{freqratio}(w) = \frac{\frac{k_{day}}{n_{day}}}{\frac{k_{2014}}{n_{2014}}}
+	\end{equation}
+	$k_{day}$: Frequenz des Tokens an einem Tag\\
+	$n_{day}$: Summe der Frequenzen aller Tokens eines Tages\\
+	$k_{2014}$: Frequenz des Tokens im Referenz Zeitrahmen (2014)\\
+	$n_{day}$: Summe der Frequenzen aller Tokens im Referenzzeitrahmen (2014)\\
 \subsection{Poisson-Maß}
 
 Die Formel leitet sich aus der Poissonverteilung ab und beschreibt wie Wahrscheinlich es ist, dass die gemessene Tagesfrequenz beobachtet werden kann. 
