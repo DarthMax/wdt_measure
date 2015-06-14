@@ -12,3 +12,4 @@ release.properties
 .DS_Store
 *.properties
 *.csvprop
+R/test_filter_measure.r
