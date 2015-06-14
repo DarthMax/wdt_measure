@@ -90,6 +90,30 @@
 \end{frame}
 
 
+\begin{frame}{TF/IDF}
+ 	\textbf{Idee: } Wir gewichten die Auftretensfrequenz eines Token an einem Tag mit dem Inversen einer Maßzahl, die Angibt an wie vielen Tagen im Referenzjahr das Wort erw\"ahnt wurde.\\
+	\textbf{Modifikationen: } 
+	\begin{itemize}
+		\item{Relativierung der Frequenz auf Frequenz des h\"aufigsten Tokens am Tag (Vergleichbarkeit)}
+		\item{Logarithmieren des IDF-Wertes}
+	\end{itemize}
+	\textbf{Formel:}
+	 \begin{equation}
+		sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{documentdays(w)})
+	\end{equation}
+	$k$: Frequenz eines Tokens an einem Tag
+	$K$: Alle Frequenzen an einem Tag
+\end{frame}
+
+\begin{frame}{TF-IDF Beispiel}
+% Hier Beispiel Flugzeug 2
+	\hspace{1cm}
+	  \begin{centering}
+	  \includegraphics[width=1\textwidth]{pictures/tfidfIllustration.png}
+	\end{centering}
+\end{frame}
+
+
 \begin{frame}{Poisson als Ma\ss}
 	\textbf{Idee: } Modellierung der Wahrscheinlichkeit eine bestimmte Frequenz eines Tokens zu sehen. Wenn die Tagesfrequenz eines Tokens sehr unwahrschilich ist, ist das Token interessant.\\
 	\textbf{Annahme: } Diese Wahrscheinlichkeiten sind Poisson-Verteilt.\\
@@ -137,44 +161,18 @@
 	\end{centering}
 \end{frame}
 
-\begin{frame}{Einschub: Wortzahl vs. Satzzahl}
-	Sowohl Wortzahl als auch die Satzzahl können Berechnung relativer Verhältnisse genutzt werden:\\
+\begin{frame}{Einschub – Wortzahl vs. Satzzahl}
 	\begin{itemize}
 		\item{Bei der Referenz wird mit Satzzahlen gearbeitet}
 		
-		\item Jeder Satz hat im Schnitt gleiche Anzahl von Wörtern ($\approx 10$)\\
+		\item{Jeder Satz hat im Schnitt gleiche Anzahl von W\"ortern ($\approx 10$)\\
 			\begin{equation}
 				\frac{Satz_{heute}}{Satz_{jahr}} \approx \frac{Token_{heute}}{Token_{Jahr}}
 			\end{equation}
-	
-		\item Zur Überprüfung später mehr
+			}
+		\item{Zur \"Uberpr\"ufung sp\"ater mehr}
 	\end{itemize}
 \end{frame}
-
-
-\begin{frame}{TF/IDF}
- 	\textbf{Idee: } Wir gewichten die Auftretensfrequenz eines Token an einem Tag mit dem Inversen einer Maßzahl, die Angibt an wie vielen Tagen im Referenzjahr das Wort erw\"ahnt wurde.\\
-	\textbf{Modifikationen: } 
-	\begin{itemize}
-		\item{Relativierung der Frequenz auf Frequenz des h\"aufigsten Tokens am Tag (Vergleichbarkeit)}
-		\item{Logarithmieren des IDF-Wertes}
-	\end{itemize}
-	\textbf{Formel:}
-	 \begin{equation}
-		sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{documentdays(w)})
-	\end{equation}
-	$k$: Frequenz eines Tokens an einem Tag
-	$K$: Alle Frequenzen an einem Tag
-\end{frame}
-
-\begin{frame}{TF-IDF Beispiel}
-% Hier Beispiel Flugzeug 2
-	\hspace{1cm}
-	  \begin{centering}
-	  \includegraphics[width=1\textwidth]{pictures/freqratioFlugzeug.png}
-	\end{centering}
-\end{frame}
-
 
 
 \begin{frame}{Z-Score}
@@ -266,8 +264,12 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Beispiel}
+\begin{frame}{Beispiel: Haus}
 \includegraphics[scale=0.18]{Bilder/R.png}
+\end{frame}
+
+\begin{frame}{Beispiel: Flugzeug}
+\includegraphics[scale=0.5]{Bilder/R2.png}
 \end{frame}
 
 \begin{frame}{Zweiter Ansatz: MySQL}
@@ -278,6 +280,16 @@
 		\item Eine Datums Differenz Tabelle kann das ganze jedoch beschleunigen
 
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Finaler Ansatz: R BigTable}
+	\begin{itemize}
+		\item Diesmal reshape der Tabelle
+		\item Spalten = Wörter, Zeilen = Datumfelder, Wert = freq
+		\item Darüber kann man das effizent einzeln berechnen
+		\item Danach überführung in alte Strucktur und Speicherung
+	\end{itemize}
+
 \end{frame}
 
 \section{Vergleich und Auswertung}
@@ -332,8 +344,6 @@ Hier Beispiellisten f\"ur den 25.3.2015 einf\"ugen.
 	\end{itemize}
 \end{frame}
 
-
-
 \begin{frame}{Zusammenfassung}
 	\begin{itemize}
 		\item{Es wurden bestehende Verfahren untersucht}
@@ -344,7 +354,6 @@ Hier Beispiellisten f\"ur den 25.3.2015 einf\"ugen.
 		\item{Es wird noch ein weiteres Verlgleichsmaß mit Ber\"ucksichtigung der Anzahl der Quellen in denen ein Token erw\"ahnt wird untersucht.}
 	\end{itemize}
 \end{frame}
-
 
 
 \begin{frame}[allowframebreaks]{Quellen}
