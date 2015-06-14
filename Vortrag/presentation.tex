@@ -259,9 +259,98 @@
 % Hier Beispiel Flugzeug 2
 \end{frame}
 
-\begin{frame}{Qualitative Auswertung}
-% Hier Beispiel Flugzeug 2
-Hier Beispiellisten f\"ur den 25.3.2015 einf\"ugen.
+\begin{frame}{Qualitative Auswertung (25.3.2015)}
+\begin{table}[ht]
+\centering
+\begin{tabular}{rll}
+  \hline
+ & poisson & tf\_idf \\ 
+  \hline
+1 & Germanwings & Germanwings-Maschine \\ 
+  2 & Absturz & Milke \\ 
+  3 & Germanwings-Maschine & Germanwings-Airbus \\ 
+  4 & A320 & 9525 \\ 
+  5 & Airbus & Germanwings-Flug \\ 
+  6 & 25. März & Germanwings \\ 
+  7 & Haltern & Germanwings-Chef \\ 
+  8 & Tsipras & Tsipras \\ 
+  9 & Alpen & Barcelonnette \\ 
+  10 & Südfrankreich & A320 \\ 
+   \hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}{Qualitative Auswertung (25.3.2015)}
+% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Jun 15 00:41:59 2015
+\begin{table}[ht]
+\centering
+\begin{tabular}{rll}
+  \hline
+ & freqratio & z\_score \\ 
+  \hline
+1 & Barcelonnette & Haltern \\ 
+  2 & Germanwings-Airbus & Aden \\ 
+  3 & Germanwings-Chef & Südfrankreich \\ 
+  4 & Rajana & Sinkflug \\ 
+  5 & Germanwings-Maschine & Akte X \\ 
+  6 & Dalkurd & A320 \\ 
+  7 & 9525 & Eierstöcke \\ 
+  8 & Fire-TV-Stick & Hadi \\ 
+  9 & ArtikelPolitik & 10.53 \\ 
+  10 & 18.03.2015 & Ja Nein \\ 
+   \hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}{Qualitative Auswertung (25.3.2015)}
+% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Jun 15 00:42:59 2015
+\begin{table}[ht]
+\centering
+\begin{tabular}{rll}
+  \hline
+ & poisson & tf\_idf \\ 
+  \hline
+31 & Germanwings-Flug & Eierstöcke entfernen \\ 
+  32 & Unglück & Kolomoiski \\ 
+  33 & abgestürzt & Flugschreiber \\ 
+  34 & Germanwings-Airbus & Bürokratiebremse \\ 
+  35 & Jemen & Sollecito \\ 
+  36 & Flugschreiber & Dalkurd \\ 
+  37 & 2015 & Haltern am See \\ 
+  38 & 4U & Akte X \\ 
+  39 & KAC & Hadis \\ 
+  40 & S6 & Bloodborne \\ 
+   \hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}{Qualitative Auswertung (25.3.2015)}
+% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Jun 15 00:43:23 2015
+\begin{table}[ht]
+\centering
+\begin{tabular}{rll}
+  \hline
+ & freqratio & z\_score \\ 
+  \hline
+31 & Eierstöcke entfernen & 4Players.de \\ 
+  32 & Germanwings-Flug & 57,5 \\ 
+  33 & Germanwings-Flugzeug & Bassbariton \\ 
+  34 & 22.03.15 & Alkoholiker \\ 
+  35 & Feuerwehr-Leutnant & Debra \\ 
+  36 & Gehenna & hervorragendem \\ 
+  37 & Grabetz & XF \\ 
+  38 & Höchstbefristungsdauer & 25. März \\ 
+  39 & Luciano Moggi & Angehörigen \\ 
+  40 & Schultreppe & Crews \\ 
+   \hline
+\end{tabular}
+\end{table}
 \end{frame}
 
 \begin{frame}{Quantitative Auswertung}
@@ -281,18 +370,46 @@ Hier Beispiellisten f\"ur den 25.3.2015 einf\"ugen.
 \end{frame}
 
 \begin{frame}{Quantitative Auswertung: Maximum Overlap Ergebnisse}
-	Tabelle
+% latex table generated in R 3.1.1 by xtable 1.7-4 package
+% Mon Jun 15 00:08:04 2015
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllr}
+  \hline
+ & List & List\_to\_compare & average\_overlap \\ 
+  \hline
+1 & tf-idf & z-score & 0.41 \\ 
+  2 & tf-idf & poisson & 0.21 \\ 
+  3 & tf-idf & freqratio & 0.33 \\ 
+  4 & z-score & poisson & 0.35 \\ 
+  5 & z-score & freqratio & 0.09 \\ 
+  6 & poisson & freqratio & 0.00 \\ 
+   \hline
+\end{tabular}
+\label{AvarageOverlapComparison}
+\end{table}
 \end{frame}
 
 \begin{frame}{Quantitative Auswertung: Maximum Overlap Ergebnisse}
-	Graph
+	  \centering
+	  \includegraphics[width=0.7\textwidth]{pictures/measureCompare.png}
+	  
 \end{frame}
 
 \begin{frame}{\emph{Einschub II: }Wortzahl vs. Satzzahl zur Berechnung relativer Verh\"altnisse}
-	Graph
-	\begin{itemize}
-		\item{\"Ubereinstimmung von numerisch 100 Prozent}
-	\end{itemize}
+	\begin{table}[ht]
+	\centering
+	\begin{tabular}{rllr}
+	  \hline
+	 & List & List\_to\_compare & average\_overlap \\ 
+	  \hline
+	3 & poisson & poisson\_old &    0.99961 \\ 
+	  4 & freqratio & freqratio\_old & 1.00000 \\ 
+	   \hline
+\end{tabular}
+
+\label{AvarageOverlapComparison}
+\end{table}
 \end{frame}
 
 
