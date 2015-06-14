@@ -215,8 +215,12 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Beispiel}
+\begin{frame}{Beispiel: Haus}
 \includegraphics[scale=0.18]{Bilder/R.png}
+\end{frame}
+
+\begin{frame}{Beispiel: Flugzeug}
+\includegraphics[scale=0.5]{Bilder/R2.png}
 \end{frame}
 
 \begin{frame}{Zweiter Ansatz: MySQL}
@@ -227,6 +231,16 @@
 		\item Eine Datums Differenz Tabelle kann das ganze jedoch beschleunigen
 
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Finaler Ansatz: R BigTable}
+	\begin{itemize}
+		\item Diesmal reshape der Tabelle
+		\item Spalten = Wörter, Zeilen = Datumfelder, Wert = freq
+		\item Darüber kann man das effizent einzeln berechnen
+		\item Danach überführung in alte Strucktur und Speicherung
+	\end{itemize}
+
 \end{frame}
 
 \section{Vergleich und Auswertung}
@@ -303,4 +317,3 @@ Hier Beispiellisten f\"ur den 25.3.2015 einf\"ugen.
 \end{frame}
 
 \end{document}
-
