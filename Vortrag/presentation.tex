@@ -34,29 +34,27 @@
 	\titlepage
 \end{frame}
 
-\begin{frame}[t,plain]
-	\tableofcontents
-\end{frame}
-
-
-\section{Motivation}
+\section{Wörter des Tages}
 \begin{frame} \sectionpage \end{frame}
 
 
-\begin{frame}{Wortschatzprojekt}
- \begin{itemize}
- 	\item Bla
- 	\item Foobar
- 	\item Batz
- \end{itemize}
- 
- \begin{definition}
- 	Definition
- \end{definition}
- 
- \begin{example}
- 	Beispiel
- \end{example}
+\begin{frame}{Wörter des Tages – Portal}
+	\begin{centering}
+	  \includegraphics[width=1\textwidth]{pictures/woerter_des_tages_seite.png}
+	\end{centering}
+	\begin{itemize}
+		\item Sammelt tagesaktuelle Begriffe aus täglich gecrawlten Newsseiten
+		\item Begriffe nach Themen-/Sachgruppen geordnet
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Wörter des Tages}
+	\textbf{Fragestellungen}
+	\begin{itemize}
+		\item Was macht ein Wort des Tages aus?
+		\item Wie erkenne ich ein Wort des Tages
+		\item Wie kann es berechnet werden?
+	\end{itemize}
 \end{frame}
 
 
@@ -64,8 +62,8 @@
 \begin{frame} \sectionpage \end{frame}
 
 \begin{frame}{Relative Häufigkeit}
-	\emph{Idee: } Tokens, deren relatives Auftreten am gewählten Tag im Verhältnis zum relativen Auftreten im Referenzzeitaum (2014) besonders groß ist, sind interessante Wörter.\\ 
-	\emph{Formel: } 
+	\textbf{Idee: } Tokens, deren relatives Auftreten am gewählten Tag im Verhältnis zum relativen Auftreten im Referenzzeitaum (2014) besonders groß ist, sind interessante Wörter.\\ 
+	\textbf{Formel: } 
 	\begin{equation}
 	sig_{freqratio}(w) = \frac{\frac{k_{day}}{n_{day}}}{\frac{k_{2014}}{n_{2014}}}
 	\end{equation}
@@ -92,34 +90,10 @@
 \end{frame}
 
 
-\begin{frame}{TF/IDF}
- 	\emph{Idee: } Wir gewichten die Auftretensfrequenz eines Token an einem Tag mit dem Inversen einer Maßzahl, die Angibt an wie vielen Tagen im Referenzjahr das Wort erw\"ahnt wurde.\\
-	\emph{Modifikationen: } 
-	\begin{itemize}
-		\item{Relativierung der Frequenz auf Frequenz des h\"aufigsten Tokens am Tag (Vergleichbarkeit)}
-		\item{Logarithmieren des IDF-Wertes}
-	\end{itemize}
-	\emph{Formel:}
-	 \begin{equation}
-		sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{documentdays(w)})
-	\end{equation}
-	$k$: Frequenz eines Tokens an einem Tag
-	$K$: Alle Frequenzen an einem Tag
-\end{frame}
-
-\begin{frame}{TF-IDF Beispiel}
-% Hier Beispiel Flugzeug 2
-	\hspace{1cm}
-	  \begin{centering}
-	  \includegraphics[width=1\textwidth]{pictures/tfidfIllustration.png}
-	\end{centering}
-\end{frame}
-
-
 \begin{frame}{Poisson als Ma\ss}
-	\emph{Idee: } Modellierung der Wahrscheinlichkeit eine bestimmte Frequenz eines Tokens zu sehen. Wenn die Tagesfrequenz eines Tokens sehr unwahrschilich ist, ist das Token interessant.\\
-	\emph{Annahme: } Diese Wahrscheinlichkeiten sind Poisson-Verteilt.\\
-	\emph{Formel der Poisson-Verteilung allgemein: }
+	\textbf{Idee: } Modellierung der Wahrscheinlichkeit eine bestimmte Frequenz eines Tokens zu sehen. Wenn die Tagesfrequenz eines Tokens sehr unwahrschilich ist, ist das Token interessant.\\
+	\textbf{Annahme: } Diese Wahrscheinlichkeiten sind Poisson-Verteilt.\\
+	\textbf{Formel der Poisson-Verteilung allgemein: }
 	\begin{equation}
 	P_\lambda(k) = \frac{\lambda^{k}}{k!}  \cdot e^{-\lambda}
 	\end{equation}
@@ -150,7 +124,7 @@
  		\item Ziel: Hoher Rang soll einen hohen Wert haben ($-log$-Methode)
 		\item Wenn die Frequenz unterdurchschnittlich ist, soll kein hoher Wert erzeugt werden
 	 \end{itemize}
-	 \emph{Formel:}
+	 \textbf{Formel:}
 	 \begin{equation}
 		sig_{poisson}(w) = \frac{k(\log(k)-\log(n\cdot p) -1 ))}{\log(n)}
 	\end{equation}
@@ -176,6 +150,31 @@
 		\item Zur Überprüfung später mehr
 	\end{itemize}
 \end{frame}
+
+
+\begin{frame}{TF/IDF}
+ 	\textbf{Idee: } Wir gewichten die Auftretensfrequenz eines Token an einem Tag mit dem Inversen einer Maßzahl, die Angibt an wie vielen Tagen im Referenzjahr das Wort erw\"ahnt wurde.\\
+	\textbf{Modifikationen: } 
+	\begin{itemize}
+		\item{Relativierung der Frequenz auf Frequenz des h\"aufigsten Tokens am Tag (Vergleichbarkeit)}
+		\item{Logarithmieren des IDF-Wertes}
+	\end{itemize}
+	\textbf{Formel:}
+	 \begin{equation}
+		sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{documentdays(w)})
+	\end{equation}
+	$k$: Frequenz eines Tokens an einem Tag
+	$K$: Alle Frequenzen an einem Tag
+\end{frame}
+
+\begin{frame}{TF-IDF Beispiel}
+% Hier Beispiel Flugzeug 2
+	\hspace{1cm}
+	  \begin{centering}
+	  \includegraphics[width=1\textwidth]{pictures/freqratioFlugzeug.png}
+	\end{centering}
+\end{frame}
+
 
 
 \begin{frame}{Z-Score}
@@ -267,12 +266,8 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Beispiel: Haus}
+\begin{frame}{Beispiel}
 \includegraphics[scale=0.18]{Bilder/R.png}
-\end{frame}
-
-\begin{frame}{Beispiel: Flugzeug}
-\includegraphics[scale=0.5]{Bilder/R2.png}
 \end{frame}
 
 \begin{frame}{Zweiter Ansatz: MySQL}
@@ -285,16 +280,6 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Finaler Ansatz: R BigTable}
-	\begin{itemize}
-		\item Diesmal reshape der Tabelle
-		\item Spalten = Wörter, Zeilen = Datumfelder, Wert = freq
-		\item Darüber kann man das effizent einzeln berechnen
-		\item Danach überführung in alte Strucktur und Speicherung
-	\end{itemize}
-
-\end{frame}
-
 \section{Vergleich und Auswertung}
 \begin{frame} \sectionpage \end{frame}
 \begin{frame}{Qualitative vs. Quantitative Auswertung}
@@ -303,7 +288,7 @@
 		\item{Quantitative vergleiche m\"oglich, aber keine Aussage \"uber Qualit\"at}
 		\item{Im Rahmen des Projektes m\"oglich:
 			\begin{itemize}
-				\item{\emph{``Evaluierung durch draufschauen''}}
+				\item{\textbf{``Evaluierung durch draufschauen''}}
 				\item{Geeignetes Maß zum quantitativen Verlgeich nutzen}
 			\end{itemize}
 		}
@@ -317,7 +302,7 @@ Hier Beispiellisten f\"ur den 25.3.2015 einf\"ugen.
 \end{frame}
 
 \begin{frame}{Quantitative Auswertung}
-	\emph{Problemstellung: }Vergleich von sortierten Listen mit potentiell unterschiedlichem Inhalt.
+	\textbf{Problemstellung: }Vergleich von sortierten Listen mit potentiell unterschiedlichem Inhalt.
 	\begin{itemize}
 		\item{Der Vergleich von Wortpaaren nicht sauber m\"oglich.}
 		\item{Schwierigkeit eines Mengenbasierter Ansatzes:\\Reihenfolge wird nicht beachtet }
@@ -326,10 +311,10 @@ Hier Beispiellisten f\"ur den 25.3.2015 einf\"ugen.
 
 
 \begin{frame}{Quantitative Auswertung: Maximum Overlap}
-	\emph{Idee: } Es wird ein Mengenbasierter Ansatz f\"ur Teillisten genutzt und dann gemittelt.\\
+	\textbf{Idee: } Es wird ein Mengenbasierter Ansatz f\"ur Teillisten genutzt und dann gemittelt.\\
 	F\"ur jeden Rang der Listen wird eine Teilliste (Rang 1 bis betrachteter Rang) verglichen.\\
 	\vspace{1cm}
-	\emph{Beispiel:} Tafelbild
+	\textbf{Beispiel:} Tafelbild
 \end{frame}
 
 \begin{frame}{Quantitative Auswertung: Maximum Overlap Ergebnisse}
@@ -340,7 +325,7 @@ Hier Beispiellisten f\"ur den 25.3.2015 einf\"ugen.
 	Graph
 \end{frame}
 
-\begin{frame}{\emph{Einschub II: }Wortzahl vs. Satzzahl zur Berechnung relativer Verh\"altnisse}
+\begin{frame}{\textbf{Einschub II: }Wortzahl vs. Satzzahl zur Berechnung relativer Verh\"altnisse}
 	Graph
 	\begin{itemize}
 		\item{\"Ubereinstimmung von numerisch 100 Prozent}
@@ -369,3 +354,4 @@ Hier Beispiellisten f\"ur den 25.3.2015 einf\"ugen.
 \end{frame}
 
 \end{document}
+
