@@ -14,8 +14,11 @@
 
 %##########################################
 \section{Aufgabenstellung}
-Es soll untersucht werden, welche Maße sinnvoll für die Generierung der Wörter des Tages sind. Eine Implementierung soll in SQL und für Zeitreihenuntersuchungen in R erfolgen.\\
-Desweiteren soll ein regelbasiertes Verfahren implementiert werden um Datumsangaben und andere strukturelle Worte zu filtern.\\
+Das Portal \" W\"orter des Tages (wortschatz.uni-leipzig.de/wort-des-tages) stellt eine \"Ubersicht von W\"ortern, die an einem ausgew\"ahlten Tag besonders relevant erschienen dar. Die W\"orter sind in neun Kategorien eingeordnet. Nach der Beschreibung auf der Website werden die W\"orter ermittelt in dem die tagesaktuelle H\"aufigkeit eines Wortes mit seiner durchschnittlichen H\"aufigkeit \"uber l\"angere Zeit hinweg gemessen wird.\\
+Die Aufgabe dieser Arbeit ist es verschiedene M\"oglichkeiten der Bestimmung von W\"ortern, die an einem gew\"ahlten Tag von besonderer Relevanz sind zu beschreiben, zu vergleichen und zu evaluieren. 
+Die Datengrundlage zur erstellung der W\"orter des Tages ist ein Corpus, das durch t\"agliches crawlen von Newsseiten generiert wird. Die Quellen der Newseiten sind eine definierte Menge an f\"ur relevant erachtete Seiten mit Nachrichten wie zum Beispiel Spiegel.de.\\
+Bei allen Ansätzen, die auf das Vorkommen in einem Referenzzeitraum rekurrieren besteht das Korpus aus allen gecrawlten Newsseiten des voragngegangenen Jahres (2014).
+Als Zusatzaufgabe soll ein musterbasiertes Verfahren in SQL entworfen werden, das es erm\"oglicht aufgrund eines gew\"ahlten Verfahrens falsch identifizierte W\"orter zu filtern. Ein Beispiel hierf\"ur sind Datumsangaben, die als relevant erscheinen, da sie Tagesaktuell oft auftauchen, aber im Vergleichszeitraum selten.
 
 %##########################################
 \section{Status quo}
@@ -28,7 +31,8 @@ google trends?\\
 
 
 % HAUPTTEIL THEORIE ##########################################################################
-\chapter{Methoden zum Finden tagesaktuellen Wörter}
+\chapter{Methoden zum Finden tagesaktueller Wörter}
+Im folgenden Abschnitt werden vier Methoden vorgestellt, die f\"uer jedes Wort eines Tageskorpus eine Ma\ss zahl bestimmen, die die Relevanz des Wortes an diesem Tag ausdr\"ucken soll.
 
 %##########################################
 \section{Maße zur Trend-Detection}
