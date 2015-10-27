@@ -24,16 +24,68 @@ Um diesem Problem gerecht zu werden hilft es ein Ma\ss f\"ur die Relevanz eines 
 
 
 \subsection{Poisson-Maß}\label{subsec.poisson}
+Die Idee dieses Ansatzes ist es ein Maß zu nutzen, das die Wahrscheinlich Ausdrückt die gemessene Anzahl von Tokens eines Wortes an einem Tag zu beobachten. Auch hier wird zur Erstellung des Maßes  das Referenz
 
-Die Formel leitet sich aus der Poissonverteilung ab und beschreibt wie Wahrscheinlich es ist, dass die gemessene Tagesfrequenz beobachtet werden kann. 
-\begin{equation}
-sig_{poisson}(w) = \frac{k(\log(k)-\log(n\cdot p) -1 ))}{\log(n)}
-\end{equation}
-k:= Anzahl der Token von w in Tagesbericht\\
+korpus des letzten Jahres genutzt. Die Annahme dieses Ansatzes ist nun, dass dieser Wahrscheinlichkeit die Poisson-Verteilung zugrundeliegt.\\
+Die Formel \ref{equ.poisson} ist die Poisson-Verteilung nach \cite[S. 338 ff]{heyer06}.
+	\begin{equation}\label{equ.poisson}
+	P_\lambda(k) = \frac{\lambda^{k}}{k!}  \cdot e^{-\lambda}
+	\end{equation}
+	$\lambda$: Welche Frequenz wird erwartet \\
+	(relativer Anteil im Referenzkorpus $\cdot$ Umfang des Tageskorpus)\\
+	$k$: tats\"achliches Auftreten von einem Wort k\\
+	$P_\lambda(k)$: Erwartete Wahrscheinlichkeit meine Beobachtung k
+
+
+In Abbildung \ref{pic.poisson_algemein} ist exemplarisch die Wahrscheinlichkeit der Beobachtung der Token-H\"aufigkeit des Wortes Flugzeug abgebildet. Die Annahme besagt nun, dass je kleiner die Wahrscheinlichkeit
+ist, desto relevanter erscheint ein Wort. \\
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{pictures/poissonVerteilungFlugzeug.png}
+    \caption{Illustration der Poissonverteilung des Token \enquote{Flugzeug} am 25.03.2015}\label{pic.poisson_algemein}
+\end{figure}
+
+An der Darstellung wird ein Nachteil dieser Methode deutlich. Nicht nur, wenn ein Token unerwartet oft beobachtet werden kann, auch wenn er seltener als erwartet beobachtet werden kann sinkt die Wahrscheinlichkeit nach diesem Modell beobachtet zu werden und es erscheint als relevantes Wort. Dieses Problem \"ost die im Folgenden beschriebene Transformation.\\
+
+Ein weiteres Problem stellt der Rechenaufwand f\"ur diese Methode dar, da die Fakult\"at des tats\"achlichen Auftretens $k$ eines Wortes berechnet werden muss. Die Herrleitung eines einfacher zu berechnenden 
+equivalenten Ma\ss es liefert \cite[S. 338 ff]{heyer06}. Zu erw\"ahnen ist, dass im Kontext dieser Herleitung wird das Ma\ss allerdings nicht zur Bestimmung von in dieser Arbeit als relevant angesehenen Einzelw\"ortern genutzt. Sondern zur Bestimmung von signifikanten Kookurenzen. \\
+Die Hergeleitete Formel \ref{equ.poisson_mass} liefert drei Vorteile. Eine Berechnung der Fakult\"at ist nicht notwendig, die Anwendung des Logarithmus liefert ein positiven Wert f\"ur unwahrscheinliche Beobachtungen, wobei die differenzen gereade bei unwahrscheinlichen Beobachtungen st\"arker ins Gewicht fallen und yu letzt werden die Wahrschinlichkeiten f\"ur seltener als erwartete Tokenzahlen nicht ber\"ucksichtigt. 
+ \begin{equation}\label{equ.poisson_mass}
+		sig_{poisson}(w) = \frac{k(\log(k)-\log(n\cdot p) -1 ))}{\log(n)} 
+ \end{equation}
+ k:= Anzahl der Token von w in Tagesbericht\\
 n := Anzahl der Tokens in Tagesbericht\\
 p := relativer Anteil eines Tokens am Jahreskorpus\\
-Es ist das gleiche Maß wie in \cite[S. 338-340]{heyer06} beschrieben und hergeleitet. Hier aber nicht zum auffinden von signifikanten Kookurenzen, sondern zum auffinden von signifikanten Nennungen im Tageskorpus gegenüber einem Vergleichskorpus.\\
 
+Die Abbildung \ref{pic.poisson_mass} illustriert die Entwicklung des Poissonma\ss es bezogen auf die Variation des Vorkommens des Tokens Flugzeug. Hier wird sichtbar, dass die unterrepr\"asentetion keinen positiven Wert erzeugt und somit keinen Einfluss auf eine nach diesem Ma\ss  geordnete Liste hat. In der Praxis sind gen\"ugend positive Werte dieses Ma\ss es zu beobachten.\\
+Die Formel \ref{equ.poisson_mass} wurde im praktischen Teil dieser Arbeit genutzt.\\
+\\ \\Todo: Wort satz anzahl erwaehnen \\ \\ 
+
+% Hier Beispiel Flugzeug
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{pictures/poissonMeasureFlugzeug.png}
+    \caption{Illustration des Poisson Ma\ss es des Tokens \enquote{Flugzeug} am 25.03.2015}\label{pic.poisson_mass}
+\end{figure}
+
+
+  
+\begin{frame}{Einschub – Wortzahl vs. Satzzahl}
+	\begin{itemize}
+		\item{Bei der Referenz wird mit Satzzahlen gearbeitet}
+		
+		\item{Jeder Satz hat im Schnitt gleiche Anzahl von W\"ortern ($\approx 10$)\\
+			\begin{equation}
+				\frac{Satz_{heute}}{Satz_{jahr}} \approx \frac{Token_{heute}}{Token_{Jahr}}
+			\end{equation}
+			}
+		\item{Zur \"Uberpr\"ufung sp\"ater mehr}
+	\end{itemize}
+\end{frame}
+
+
+ 
 \subsection{Termfrequenz inverse Dokumentenfrequenz (tf-idf)}
  \begin{equation}
 sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{|documentdays(w)|})
