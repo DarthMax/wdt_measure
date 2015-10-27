@@ -5,6 +5,7 @@ tex/*.blg
 tex/*.log
 tex/*.toc
 tex/*.gz
+text/*.pdf
 text/*.synctex.gz
 release.properties
 .idea/
