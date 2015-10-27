@@ -1,21 +1,19 @@
-
--- Need 
-
-
-
-   
+-- Hallo Max
+-- Berechnung der summe aller Frequenzen eines Tages  
 SELECT @total_frequence_day := (
    SELECT       SUM(freq) 
    FROM         daily_words 
    WHERE        date = Date("2015-01-01")
    ) total_freq_day;
              
+-- Berechnung der Summe der Frequenzen im Referenzzeitraum
 SELECT @total_frequence_2014 := (
     SELECT       SUM(freq) 
     FROM         deu_news_2014.words 
     WHERE        w_id >  30
     ) AS total_freq_2014;
 
+-- Ausgabe der neuen Poissonwerte und der anderen Werte zum vergleichen
 SELECT      words2015.word,
             words2015.w_id,
             day.freq, 
@@ -52,6 +50,7 @@ SELECT words.word, words.w_id, date
         GROUP BY date 
         LIMIT 20;
 
+-- Ich weiss nicht mehr, warum bei diesem Insert statement am ende z/score stehen koennte. Ist das von Dir?
  INSERT INTO aliss15a_daily_words (w_id, date, poisson) (
     SELECT 
             now.w_id,
