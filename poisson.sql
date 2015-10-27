@@ -1,4 +1,5 @@
 -- Hallo Max
+-- Ich glaube die datei kann weg. muesste alles in statements sql sein.
 -- Berechnung der summe aller Frequenzen eines Tages  
 SELECT @total_frequence_day := (
    SELECT       SUM(freq) 
