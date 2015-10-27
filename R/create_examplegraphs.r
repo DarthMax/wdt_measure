@@ -1,3 +1,4 @@
+# This file contains the r code to create the example graphs in the seminararbeit
 
 poisson_lambda <- function(k) {
   lambda = 80
