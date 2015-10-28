@@ -1,7 +1,6 @@
-	
 -- in deu_news_2014
-
 -- Tabelle für vorberechnete Werte
+-- =================================
 CREATE TABLE aliss15a_words (
     w_id INT(10) UNSIGNED PRIMARY KEY,
     relative_document_frequency FLOAT, -- Anzahl der Tage an denen wort Vorkommt / 365ish
@@ -11,7 +10,9 @@ CREATE TABLE aliss15a_words (
         REFERENCES words(w_id),
 );
 
+
 -- Tabelle für vorberechnete relative Häufigkeiten, etc..
+-- ========================================================
 CREATE TABLE aliss15a_daily_words (
     w_id INT(10) UNSIGNED,
     date date,
@@ -28,18 +29,21 @@ CREATE TABLE aliss15a_daily_words (
 
 
 
--- Berechne Relative Wortfrequenz pro Wort und Tag (7min für 2014)
-
+-- Berechne Relative Wortfrequenz pro Wort und Tag
+-- Als Referenz dient die Frequenz des Wortes "der" am jeweiligen Tag
+-- Berechnung für jeden Tag im referenz- und im aktuellen Corpus
+-- ===================================================================
 select @der_id:=(select w_id from words where word='der');
 
 INSERT INTO aliss15a_daily_words (w_id,date,relative_freq) (
-    SELECT w_id, daily_words.date, (freq/daily_sums.sum) 
+    SELECT w_id, daily_words.date, (freq/daily_der.freq) 
         FROM daily_words 
             JOIN (SELECT date, freq FROM daily_words WHERE w_id=@der_id) AS daily_der ON daily_der.date=daily_words.date
 ) ON DUPLICATE KEY UPDATE relative_freq=values(relative_freq);
 
 
--- Berechne Erwartungswert und Standardabweichung pro Wort (15 min für 2014)
+-- Berechne Erwartungswert und Standardabweichung pro Wort
+-- =========================================================
 INSERT INTO aliss15a_words (w_id,mean,standard_derivation) (
     SELECT w_id, AVG(relative_freq), STD(relative_freq) 
         FROM aliss15a_daily_words 
@@ -47,7 +51,8 @@ INSERT INTO aliss15a_words (w_id,mean,standard_derivation) (
 ) ON DUPLICATE KEY UPDATE mean=values(mean), standard_derivation=values(standard_derivation);
 
 
--- Berechne Dokumentenhäufigkeit pro Wort (Dokument = 1 Tag) (13 min für 2014)
+-- Berechne Dokumentenhäufigkeit pro Wort (Dokument = 1 Tag)
+-- ==========================================================
 INSERT INTO aliss15a_words (w_id,relative_document_frequency) ( 
     SELECT daily_words.w_id, (word_counts.wc/(SELECT COUNT(DISTINCT date) from daily_words)) 
         FROM daily_words
@@ -61,7 +66,6 @@ INSERT INTO aliss15a_words (w_id,relative_document_frequency) (
 
 
 -- Calculate Z-Score pro Wort und Tag für 2015
--- ACHTUNG @max from @wolfo: JOIN verschluckt Woerter, die  nicht in 2014 sind (LEFT OUTER JOIN?)
 INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
     SELECT 
             now.w_id,
@@ -75,6 +79,8 @@ INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
 ) ON DUPLICATE KEY UPDATE z_score=values(z_score);
 
 
+-- Gibt die 100 signifikantesten Worte des Tages aus
+-- ==================================================
 SELECT @threshold:=(
     SELECT AVG(daily_words.relative_freq) 
         FROM deu_news_2014.aliss15a_words words 
@@ -117,7 +123,6 @@ INSERT INTO aliss15a_daily_words (w_id, date, tf_idf) (
 
 
 -- POISSON NEU  (inkl freqration neu) 
--- (23 Minuten fuer ganz 2015) 
 -- ==================================
 
  

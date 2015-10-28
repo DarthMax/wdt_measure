@@ -31,10 +31,18 @@ class DailyWord < ActiveRecord::Base
 
 
     def is_trend?
-       zscore = ZScore.new(self).value
-       bracet_value = DailyWord.where(:w_id => w_id).where("date <= ?",date).count("DISTINCT(date)") / DailyWord.where("date <= ?",date).count("DISTINCT(date)").to_f
-       bracet = BRACET_THRESHOLDS.keys.find {|bracet| bracet.include?(bracet_value)}
-       zscore >= BRACET_THRESHOLDS[bracet]
+        zscore = ZScore.new(self).value
+        bracet_value = 
+                DailyWord.
+                    where(:w_id => w_id).
+                    where("date <= ?",date).
+                    count("DISTINCT(date)") / 
+                DailyWord.
+                    where("date <= ?",date).
+                    count("DISTINCT(date)").
+                    to_f
+        bracet = BRACET_THRESHOLDS.keys.find {|bracet| bracet.include?(bracet_value)}
+        zscore >= BRACET_THRESHOLDS[bracet]
     end
 end
 
