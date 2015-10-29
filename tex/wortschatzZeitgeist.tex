@@ -14,28 +14,23 @@
 
 %##########################################
 \section{Aufgabenstellung}
-Das Portal \" W\"orter des Tages (wortschatz.uni-leipzig.de/wort-des-tages) stellt eine \"Ubersicht von W\"ortern, die an einem ausgew\"ahlten Tag besonders relevant erschienen dar. Die W\"orter sind in neun Kategorien eingeordnet. Nach der Beschreibung auf der Website werden die W\"orter ermittelt in dem die tagesaktuelle H\"aufigkeit eines Wortes mit seiner durchschnittlichen H\"aufigkeit \"uber l\"angere Zeit hinweg gemessen wird.\\
-Die Aufgabe dieser Arbeit ist es verschiedene M\"oglichkeiten der Bestimmung von W\"ortern, die an einem gew\"ahlten Tag von besonderer Relevanz sind zu beschreiben, zu vergleichen und zu evaluieren. 
-Die Datengrundlage zur erstellung der W\"orter des Tages ist ein Corpus, das durch t\"agliches crawlen von Newsseiten generiert wird. Die Quellen der Newseiten sind eine definierte Menge an f\"ur relevant erachtete Seiten mit Nachrichten wie zum Beispiel Spiegel.de.\\
+Das Portal Wörter des Tages (wortschatz.uni-leipzig.de/wort-des-tages) stellt eine Übersicht von Wörtern, die an einem ausgewählten Tag besonders relevant erschienen dar. Die Wörter sind in neun Kategorien eingeordnet. Nach der Beschreibung auf der Website werden die Wörter ermittelt in dem die tagesaktuelle Häufigkeit eines Wortes mit seiner durchschnittlichen Häufigkeit über längere Zeit hinweg gemessen wird.\\
+Die Aufgabe dieser Arbeit ist es verschiedene Möglichkeiten der Bestimmung von Wörtern, die an einem gewählten Tag von besonderer Relevanz sind zu beschreiben, zu vergleichen und zu evaluieren. 
+Die Datengrundlage zur erstellung der Wörter des Tages ist ein Corpus, das durch tägliches crawlen von Newsseiten generiert wird. Die Quellen der Newseiten sind eine definierte Menge an für relevant erachtete Seiten mit Nachrichten wie zum Beispiel Spiegel.de.\\
 Bei allen Ansätzen, die auf das Vorkommen in einem Referenzzeitraum rekurrieren besteht das Korpus aus allen gecrawlten Newsseiten des voragngegangenen Jahres (2014).
-Als Zusatzaufgabe soll ein musterbasiertes Verfahren in SQL entworfen werden, das es erm\"oglicht aufgrund eines gew\"ahlten Verfahrens falsch identifizierte W\"orter zu filtern. Ein Beispiel hierf\"ur sind Datumsangaben, die als relevant erscheinen, da sie Tagesaktuell oft auftauchen, aber im Vergleichszeitraum selten.
-
-%##########################################
-\section{Status quo}
+Als Zusatzaufgabe soll ein musterbasiertes Verfahren in SQL entworfen werden, das es ermöglicht aufgrund eines gewählten Verfahrens falsch identifizierte Wörter zu filtern. Ein Beispiel hierfür sind Datumsangaben, die als relevant erscheinen, da sie Tagesaktuell oft auftauchen, aber im Vergleichszeitraum selten.
 
 %##########################################
 \section{Vergleichbare Ansätze}
-Tagesaktuelle Wikiartikel\\
-google trends?\\
+%Tagesaktuelle Wikiartikel\\
+%google trends?\\
 
 
 
-% HAUPTTEIL THEORIE ##########################################################################
-\chapter{Methoden zum Finden tagesaktueller Wörter}
-Im folgenden Abschnitt werden vier Methoden vorgestellt, die f\"uer jedes Wort eines Tageskorpus eine Ma\ss zahl bestimmen, die die Relevanz des Wortes an diesem Tag ausdr\"ucken soll.
-
+% HAUPTTEIL THEORIE 
 %##########################################
-\section{Maße zur Trend-Detection}
+\chapter{Maße zur Trend-Detection}
+Im folgenden Abschnitt werden vier Methoden vorgestellt, die füer jedes Wort eines Tageskorpus eine Maßzahl bestimmen, die die Relevanz des Wortes an diesem Tag ausdrücken soll.
 
 %#####################
 \input{parts/poisson_etc.tex}
@@ -43,15 +38,11 @@ Im folgenden Abschnitt werden vier Methoden vorgestellt, die f\"uer jedes Wort e
 %#####################
 \input{parts/z_score.tex}
 
-%#####################
-\subsection{Weitere Maße}
-Einbeziehung der Anzahl von Quelle
-
 %##########################################
 \section{Zeitreihenanalysen}
 
 %##########################################
-\section{Cleaning}
+\chapter{Cleaning}
 Es sollen Datumsangaben und evtl. neu auftauchende strukturelle Angaben ausgefiltert werden.\\
 Ansatz: Regelbasiert.\\
 Gibt es Maße, die solche Angaben strukturell ausschließen?
@@ -59,7 +50,7 @@ Gibt es Maße, die solche Angaben strukturell ausschließen?
 
 
 %HAUPTTEIL IMPLEMENTIERUNG ##################################################################
-\chapter{Implementierungen in SQL und R}
+%\chapter{Implementierungen in SQL und R}
 
 
 
@@ -68,11 +59,11 @@ Gibt es Maße, die solche Angaben strukturell ausschließen?
  
 Kriterien: Anteil niederfrequenter Wörter in der Top-Liste\\
 \section{Einleitung}
-Die Messung der G\"ute der Ergebnisse stellt eine Herausforderung dar, da es keine geeignete Referenz, beispielswiese in Form eines Goldstandards der wichtigsten Worte eines Tages gibt. Um die G\'ute trotzdem einsch\"atzen zu k\"onnen bieten sich zwei herangehensweisen an. Zum einen die eigenst\"andige manuelle Pr\"ufung der Ergebnisse unter selbst formulierten Kriterien, zum anderen der quantitative Vergleich mittels eines geeigneten Abstandsma\ss es. Letzterer Ansatz bietet aber nur die M\"oglichkeit eines Verlgeiches der \"Ahnlichkeiten der Ergebnisse und hilft abzusch\"atzen wie sich die Ergebnisse gegeneinander verhalten. \"Uber die G\"ute gibt diese Methode keine Auskunft. Allerdings lassen sich Ausrei\ss er gut erkennen und der Pr\"amisse, dass gleiche Ergebnisse, die aus verschiedenen M\"ass ungen stammen eine h\"ohere Wahrscheinlichkeit besitzen gute Ergebnisse zu sein l\"asst sich auch die Qualit\"at beurteilen.
+Die Messung der Güte der Ergebnisse stellt eine Herausforderung dar, da es keine geeignete Referenz, beispielswiese in Form eines Goldstandards der wichtigsten Worte eines Tages gibt. Um die G\'ute trotzdem einschätzen zu können bieten sich zwei herangehensweisen an. Zum einen die eigenständige manuelle Prüfung der Ergebnisse unter selbst formulierten Kriterien, zum anderen der quantitative Vergleich mittels eines geeigneten Abstandsmaß es. Letzterer Ansatz bietet aber nur die Möglichkeit eines Verlgeiches der Ähnlichkeiten der Ergebnisse und hilft abzuschätzen wie sich die Ergebnisse gegeneinander verhalten. Über die Güte gibt diese Methode keine Auskunft. Allerdings lassen sich Ausreißer gut erkennen und der Prämisse, dass gleiche Ergebnisse, die aus verschiedenen Mess ungen stammen eine höhere Wahrscheinlichkeit besitzen gute Ergebnisse zu sein lässt sich auch die Qualität beurteilen.
 \section{Qualitativer Vergleich}
-Um sich einen Eindruck der Ergebnisse anhand der resultierenden soriterten Wortlisten zu verschaffen wurden die Listen ausgew\"ahlter Tage verglichen. Da die Untersuchenden keine ausgewiesene Expertiese ausweist, die wichtigsten W\"orter eines t\"aglichen Nachrichtenstroms zu indentifizieren, die \"uber der eines Zeitungslesers liegt kann die Analyse nicht in die Tiefe gehen. Aber durch die Wahl der Tage l\"asst sich das \"Uberblicken der Ergebnisse vereinfachen. Deshalb w\"ahlten wir den 1.1.2015. \\
+Um sich einen Eindruck der Ergebnisse anhand der resultierenden soriterten Wortlisten zu verschaffen wurden die Listen ausgewählter Tage verglichen. Da die Untersuchenden keine ausgewiesene Expertiese ausweist, die wichtigsten Wörter eines täglichen Nachrichtenstroms zu indentifizieren, die über der eines Zeitungslesers liegt kann die Analyse nicht in die Tiefe gehen. Aber durch die Wahl der Tage lässt sich das Überblicken der Ergebnisse vereinfachen. Deshalb wählten wir den 1.1.2015. \\
  Das funktiuoniert so noch nicht!!! Umschreiben ist nur blabla!!
-\section{Quantitativer Vergleich - Average Overlap als Vergleichma\ss}
+\section{Quantitativer Vergleich - Average Overlap als Vergleichmaß}\label{sec.quanitative_auswertung}
 \input{parts/average_overlap.tex}
 
 
