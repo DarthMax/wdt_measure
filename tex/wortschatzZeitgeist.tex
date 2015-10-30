@@ -46,6 +46,24 @@ Im folgenden Abschnitt werden fünf Methoden vorgestellt, die f\"uer jedes Wort 
 
 %##########################################
 \chapter{Zeitreihenanalysen}
+Es wurde eine Pipeline in R geschrieben um geglättete Tagesfrequenzen zu berechnen.\footnote{Dieser Teil des Projektes wurde von Thomas Döring verfasst, der leider zum Zeitpunkt der Fertigstellung dieser Arbeit nicht mehr auf Kommunikationsversuche antwortete.} Diese Pipeline umfasst sechs Teile. Die Programmteile sind unter thomas/v2/R/1.r~-~6.r im Projektordner zu finden.
+\begin{enumerate}
+\item Aufbau einer Verbindung mit der Datenbank
+\item Laden der Daten aus der Datenbank
+\item Reshape der Daten I: Eine Spalte entspricht einem Wort
+\item Berechnung der neuen Werte mittels Filter
+\item Reshape der Daten II: Umformung in die Ursprüngliche Form mit einem Wort pro Zeile (melt)
+\item Schreiben der berechneten Daten in die Datenbank 
+\end{enumerate}
+Die Abbildung~\ref{pic.time_airplane} stellt Beispielhaft die Ergebnisse für das Wort Flugzeug dar. Mit der genutzten Bibliothek kann leicht durch Parameter die größe des Fensters angepasst werden.\footnote{Verwendete Funktion in R dokumentiert in: \url{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/filter.html}, Abgerufen am 30.10.2015, 18:55 Uhr.}
+% Hier Beispiel Flugzeug
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.82\textwidth]{pictures/timeflugzeug.png}
+    \caption{Illustration des gleitenden Fensters anhand des Wortes Flugzeug. Die rote Linie stellt die berechneten Werte dar. Die größe des Zeitfensters zur Durchschnittsbildung konnte leider nicht rekonstruiert werden (Annahme 8, da die ersten 7 Tage nicht geplottet sind). }\label{pic.time_airplane}
+\end{figure}
+
+ 
 %\chapter{Cleaning}
 
 %##########################################
