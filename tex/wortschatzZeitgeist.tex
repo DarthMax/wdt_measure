@@ -14,7 +14,7 @@
 
 %##########################################
 \section{Aufgabenstellung}
-Das Portal  \emph{Wörter des Tages} (\url{http://wortschatz.uni-leipzig.de/wort-des-tages}) stellt eine Übersicht von Wörtern, die an einem ausgewählten Tag besonders relevant erschienen dar. Die Wörter sind in neun Kategorien eingeordnet. Nach der Beschreibung auf der Website werden die Wörter ermittelt in dem die tagesaktuelle Häufigkeit eines Wortes mit seiner durchschnittlichen Häufigkeit über längere Zeit hinweg gemessen wird.\\
+Das Portal  \emph{Wörter des Tages}\footnote{\url{http://wortschatz.uni-leipzig.de/wort-des-tages}, Abgerufen am 29.10.2015,~9:34~Uhr} stellt eine Übersicht von Wörtern, die an einem ausgewählten Tag besonders relevant erschienen dar. Die Wörter sind in neun Kategorien eingeordnet. Nach der Beschreibung auf der Website werden die Wörter ermittelt in dem die tagesaktuelle Häufigkeit eines Wortes mit seiner durchschnittlichen Häufigkeit über längere Zeit hinweg gemessen wird.\\
 Die Aufgabe dieser Arbeit ist es verschiedene Möglichkeiten der Bestimmung von Wörtern, die an einem gewählten Tag von besonderer Relevanz sind zu beschreiben, zu vergleichen und zu evaluieren. 
 Die Datengrundlage zur Erstellung der Wörter des Tages ist ein Corpus, das durch tägliches crawlen von Newsseiten generiert wird. Die Quellen der Newseiten sind eine definierte Menge an für relevant erachtete Seiten mit Nachrichten wie zum Beispiel \emph{Spiegel.de}.\\
 Bei allen Ansätzen, die auf das Vorkommen in einem Referenzzeitraum rekurrieren besteht das Korpus aus allen gecrawlten Newsseiten des voragngegangenen Jahres (2014).
@@ -28,11 +28,11 @@ Aber auch bei kleinerer Datenmengen ist das Erkennen von Trends bzw. Anomalien n
 
 
 % HAUPTTEIL THEORIE ##########################################################################
-\chapter{Methoden zum Finden tagesaktueller Wörter}
-Im folgenden Abschnitt werden vier Methoden vorgestellt, die f\"uer jedes Wort eines Tageskorpus eine Ma\ss zahl bestimmen, die die Relevanz des Wortes an diesem Tag ausdr\"ucken soll.
+%\chapter{Methoden zum Finden tagesaktueller Wörter}
 
 %##########################################
-\section{Maße zur Trend-Detection}
+\chapter{Maße zur Trend-Detection}
+Im folgenden Abschnitt werden fünf Methoden vorgestellt, die f\"uer jedes Wort eines Tageskorpus eine Ma\ss zahl bestimmen, die die Relevanz des Wortes an diesem Tag ausdr\"ucken soll.
 
 %#####################
 \input{parts/poisson_etc.tex}
@@ -41,22 +41,23 @@ Im folgenden Abschnitt werden vier Methoden vorgestellt, die f\"uer jedes Wort e
 \input{parts/z_score.tex}
 
 %#####################
-\subsection{Weitere Maße}
-Einbeziehung der Anzahl von Quelle
+%\subsection{Weitere Maße}
+%Einbeziehung der Anzahl von Quelle
 
 %##########################################
-\section{Zeitreihenanalysen}
+\chapter{Zeitreihenanalysen}
+%\chapter{Cleaning}
 
 %##########################################
-\section{Cleaning}
-Es sollen Datumsangaben und evtl. neu auftauchende strukturelle Angaben ausgefiltert werden.\\
-Ansatz: Regelbasiert.\\
-Gibt es Maße, die solche Angaben strukturell ausschließen?
+%\chapter{Cleaning}
+%Es sollen Datumsangaben und evtl.\ neu auftauchende strukturelle Angaben ausgefiltert werden.\\
+%Ansatz: Regelbasiert.\\
+%Gibt es Maße, die solche Angaben strukturell ausschließen?
 
 
 
 %HAUPTTEIL IMPLEMENTIERUNG ##################################################################
-\chapter{Implementierungen in SQL und R}
+%\chapter{Implementierungen in SQL und R}
 
 
 
