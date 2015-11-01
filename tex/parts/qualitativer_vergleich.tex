@@ -1,8 +1,13 @@
 Aufgrund des fehlenden Goldstandards und Expertenwissen ist ein qualitativer Vergleich nur mittels Stichproben möglich. Jedoch ist selbst bei diesem Ansatz ein Bewertung der Ergebnisse schwierig. Wir haben uns daher entschieden den Vergleich an einem Tag durchzuführen und haben den 31.10.2015 ausgewählt. 
-Für diesen Tag konnten wir daher zuerst mittels der Nachrichten eine Menge an Themen als Erwartungswert zusammenstellen. Wir erwarten daher, dass Begriffe welche diesem Thema zugeordnet werden können in den jeweiligen Listen vorkommen. 
-Die Themen sind: Wahl in der Türkei, Flugzeugabsturz über dem Sinai, Flchtlingskrise, 
-
-
+Für diesen Tag konnten wir daher zuerst mittels der Nachrichten eine Menge an Themen als Erwartungswert zusammenstellen. Wir erwarten daher, dass Begriffe welche diesem Thema zugeordnet werden können in den jeweiligen Listen vorkommen. Die Themen sind:
+\begin{itemize}
+	\item Flugzeugabsturz über dem Sinai
+	\item Flüchtlingskrise
+	\item Mordfall Elias und Mohamed
+	\item Halloween
+	\item 
+\end{itemize} 
+Des weiteren sollte es möglich sein die anderen Trendworte aktuellen Themen zuordnen zu können, hierbei sollten überregionale Neuigkeiten vor Regionalen Themen priorisiert werden. 
 
 \begin{table}
 \centering
@@ -10,7 +15,7 @@ Die Themen sind: Wahl in der Türkei, Flugzeugabsturz über dem Sinai, Flchtling
 
 \begin{tabular}{c|c|c|c}
 \hline
-Freqratio 							   & TF-IDF 					 & POISSON 						 & Z-Score \\
+Freqratio 							   & TF-IDF 					    & POISSON 						  & Z-Score \\
 \hline
 
 Zoo Leipzig               (129.6, 210) & Zoo Leipzig        (12,0, 210) & Zoo Leipzig         (69.3, 210) & Übergabe-          (7231.5,  10) \\
@@ -66,5 +71,23 @@ Halloween                 ( 22.3, 134) & Junhold            ( 2.1,  21) & Grip  
 \hline
 \end{tabular}
 }
+\label{table:results}
 \caption{Vergleich der unterschiedlichen Algorithmen am Beispiel des 31.10.2015. Gezeigt werden die 100 relevantesten Worte und in Klammern jeweils der Score und die Tagesfrequenz}
 \end{table}
+
+Tabelle \ref{table:results} zeigt die 50 relevantesten Ergebnisse für den 31.10.2015. Zunächst fällt positiv auf, dass sich in den Listen allgemein sehr viele Eigennamen befinden, was das Zuordnen dieser Worte zu bestimmten Themen und Themengebieten stark vereinfacht und ein vorfiltern von Named Entities somit nicht nötig ist. Die Einordnung der Worte zu bestimmten Themen ist jedoch nicht immer auf den ersten Blick erkennbar, zu den erwarteten Themengebieten können jedoch unter anderem die folgenden Worte zugeordnet werden:
+
+\begin{itemize}
+	\item{Flugzeugabsturz über dem Sinai}\\
+		A-321, 9268, Ägäis, Russisches, Sinai-Halbinsel, Scharm el Scheich, 
+	\item{Flüchtlingskrise}\\
+		Flüchtlingskrise, Flüchtling, Syrien, IS, Passau, Lesbos
+	\item{Mordfall Elias und Mohamed}\\
+		Elias, Mohamed, Niedergörsdorf, Schlaatz
+	\item{Halloween}
+		Halloween 	
+\end{itemize}
+
+Es kann festgestellt werden, zu jeden der erwarteten Themengebiete Begriffe als Trend klassifiziert werden und auch bei jedem Algorithmus zu jedem Thema mindestens einen Begriff gibt, dabei dominiert das Thema Flüchtlingskrise, was sich auch durch die aktuelle Nachrichtenlage begründen lässt. Einzig der Begriff Halloween wird von Z-Score-Algorithmus nicht als Top-50-Trend erkannt. Bemerkenswert ist auch, dass zu diesem Thema kein anderes Wort in den Listen auftaucht.\\
+Bei der stichprobenartigen Analyse der übrigen Begriffe ist es Möglich einen Großteil der Begriffe überregionalen und teilweise regionalen Nachrichten zugeordnet werden kann. Es gibt jedoch eine Begriffe, welche keine Neuigkeiten darstellen, wie zum Beispiel \emph{4Players.de, Zoo Leipzig, Tropenerlebniswelt, studiKURIER}. Bei diesen Worten ist zu vermuten, dass es sich um strukturelle Angaben auf Webseiten handelt, welche sich nicht auf diese Weise im Referenzkorpus wiederspiegeln, zum Beispiel aufgrund struktureller Veränderungen auf der Website.
+Ein objektiver qualitativer Vergleich der Listen untereinander ist jedoch kaum möglich.
