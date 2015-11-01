@@ -1,0 +1,57 @@
+\chapter{Cleaning}
+
+Ein Problem welches alle im vorangegangen Kapitel vorgestellten Algorithmen gemein haben ist, dass Datumsangaben, sowie Uhrzeiten und Temperaturangaben häufig hohe Relevanzwerte erhalten. Vor allem die Datumsangaben des jeweiligen Tages werden täglich als Trend erkannt. Da diese jedoch keinen Informationswert besitzen sollten sie ausgefiltert werden. Der einfachste Ansatz ist diese Werte aus der Liste der Trends zu filtern. Dies kann mittels regulärer Ausdrücke realisiert werden. Die folgenden Ausdrücke können die häufigsten Vorkommen von Datums-, Zeit- und Temperaturangaben erkennen:
+
+\begin{itemize}
+	\item{Datumsangaben der Form 01.01, 01.01.15, 01.01.2015}\\
+	\begin{lstlisting}[language=sql]
+'^[[:digit:]]{2}.[[:digit:]]{2}(.[[:digit:]]{2,4})?$'
+	\end{lstlisting}
+\end{itemize}
+
+\begin{itemize}
+	\item{Datumsangaben der Form 01. Januar}\\
+	\begin{lstlisting}[language=sql]
+'^[[:digit:]]{2}.[[:blank:]](Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)$'
+	\end{lstlisting}
+\end{itemize}
+
+\begin{itemize}
+	\item{Zeitangaben}\\
+	\begin{lstlisting}[language=sql]
+'[[:digit:]]{2}:[[:digit:]]{2}'
+	\end{lstlisting}
+\end{itemize}
+
+\begin{itemize}
+	\item{Temperaturangaben}\\
+	\begin{lstlisting}[language=sql]
+'[[:digit:]]{2}[[:blank:]]?°C?'
+	\end{lstlisting}
+\end{itemize}
+
+Dieser Ansatz hat einen Nachteil, da alle Datumsangaben gefiltert werden. In einigen Ausnahmefällen könnten diese jedoch tatsächlich relevante Begriffe darstellen, als Beispiel sei hier der 11. September genannt. Da es sich bei den unerwünschten Angaben jedoch meist um das aktuelle Datum bzw. einen Tag später oder früher handelt, würde es ausreichen nur diese Ausdrücke zu filtern: 
+
+\begin{itemize}
+	\item{Datumsangaben gestern, heute, vorgestern}\\
+	\begin{lstlisting}[language=sql]
+SET lc_time_names = 'de_DE';
+CONCAT("^(",
+   CONCAT_WS("|",
+       DATE_FORMAT(CURDATE(),"%d.%c.%Y"),
+       DATE_FORMAT(CURDATE(),"%d.%c.%y"),
+       DATE_FORMAT(CURDATE(),"%d.%c"),
+       DATE_FORMAT(CURDATE(),"%d. %M"),
+       DATE_FORMAT(CURDATE()-1,"%d.%c.%Y"),
+       DATE_FORMAT(CURDATE()-1,"%d.%c.%y"),
+       DATE_FORMAT(CURDATE()-1,"%d.%c"),
+       DATE_FORMAT(CURDATE()-1,"%d. %M"),
+       DATE_FORMAT(CURDATE()+1,"%d.%c.%Y"),
+       DATE_FORMAT(CURDATE()+1,"%d.%c.%y"),
+       DATE_FORMAT(CURDATE()+1,"%d.%c")
+       DATE_FORMAT(CURDATE()+1,"%d. %M"),
+   ),
+   ")$"
+);
+	\end{lstlisting}
+\end{itemize}

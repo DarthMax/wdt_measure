@@ -11,7 +11,19 @@
 \usepackage{graphicx}
 \usepackage[autostyle=true,german=quotes]{csquotes} %deutsche anfuehrungszeichen
 \usepackage{hyperref}
+\usepackage{listings}
+\usepackage{gensymb}
+\usepackage{xcolor}
 
+
+\lstset{
+	breaklines=true, 
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},
+  	literate={ö}{{\"o}}1
+           {ä}{{\"a}}1
+           {ü}{{\"u}}1
+           {°}{{\degree}}1
+}
  
  \newcommand{\ourtitlepage}{
  %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

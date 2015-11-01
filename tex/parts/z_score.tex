@@ -1,5 +1,5 @@
 \subsection{Z-Score}
-Das bei diesem, von Benattar et al. \cite{benattar2011trend} beschriebenen, Ansatz zu Grunde liegende statistische Mittel ist der Z-Score. Dieser misst die Abweichung einer Zufallsvariable vom Erwartungswert in Vielfachen der Standartabweichung. Als Zufallsvariable dient die relative Worthäufigkeit am jeweiligen Tag. Erwartungswert und Standartabweichung werden mittels des Referenzkorpus berechnet. 
+Das bei diesem, von Benattar et al. \cite{benattar2011trend} beschriebenen, Ansatz zu Grunde liegende statistische Mittel ist der Z-Score. Dieser misst die Abweichung einer Zufallsvariable vom Erwartungswert in Vielfachen der Standartabweichung. Als Zufallsvariable dient die relative Worthäufigkeit am jeweiligen Tag. Erwartungswert und Standartabweichung werden mittels des Referenzkorpus berechnet. Die Idee dabei ist es die Auftrittsfrequenz eines Wortes mit der mittleren Schwankung in Beziehung zu setzen, wodurch normale Frequenzschwankungen geglättet werden. Ein großer Vorteil dieses Verfahrens ist die einfache Berechnung, da Erwartungswert und Standartabweichung nur einmalig für den Referenzkorpus berechnet werden müssen. 
 
 \begin{itemize}
 	\item{Wortfrequenz}
@@ -35,7 +35,7 @@ Das bei diesem, von Benattar et al. \cite{benattar2011trend} beschriebenen, Ansa
 		
 \end{itemize}
 
-Ein Problem bei der Verwendung des Z-Scores sind Worte mit sehr kleinem Erwartungswert. Dies sind häufig Worte, welche an nur sehr wenigen Tagen und im schlimmsten Fall gar nicht im Referenzkorpus auftreten. Bei diesem Worten bedeutet bereits eine sehr geringe Wortfrequenz von ein oder zwei Vorkommen einen enormen Ausschlag im Z-Score. Um dieses sogenannte Zero-Frequency-Problem abzuschwächen schlagen Benattar et. al. vor die Worte anhand ihrer Auftrittshäufigkeit zu clustern. Den Clustern werden dabei Z-Score-Schwellwerte zugeordnet. Überschreitet der Z-Score eines Wortes den Schwellwert seines Clusters wird dieses Wort als signifikant und somit als Trend eingestuft. Cluster mit niedriger Auftrittshäufigkeit erhalten dabei höhere Schwellwerte. Je häufiger ein Wort auftritt desto niedriger wird der Schwellwert. 
+Größtes Problem bei der Verwendung des Z-Scores sind Worte welche an nur sehr wenigen Tage und mit sehr geringen Frequenz im Referenzkorpus vorkommen,w as dazuführt das Erwartungswert, sowie Standartabweichung nahe 0 liegen. Dies führt dazu, dass bereits eine sehr geringe Wortfrequenz von ein oder zwei Vorkommen an einem Tag einen enormen Ausschlag im Z-Score verursacht. Um dieses sogenannte Zero-Frequency-Problem abzuschwächen schlagen Benattar et. al. vor die Worte anhand ihrer Auftrittshäufigkeit zu clustern. Den Clustern werden dabei Z-Score-Schwellwerte zugeordnet. Überschreitet der Z-Score eines Wortes den Schwellwert seines Clusters wird dieses Wort als signifikant und somit als Trend eingestuft. Cluster mit niedriger Auftrittshäufigkeit erhalten dabei höhere Schwellwerte. Je häufiger ein Wort auftritt desto niedriger wird der Schwellwert. 
 
 \begin{itemize}
 	
@@ -56,5 +56,15 @@ Ein Problem bei der Verwendung des Z-Scores sind Worte mit sehr kleinem Erwartun
 			20 & 25 & 15 & 12 & 10 & 9 & 8 & 6 & 5 \\
 			\hline
 		\end{tabular}
-			
+		
+	\item{Mittlere Auftretenshäufigkeit}\\
+		\begin{align*}
+			threshold = \frac{\sum{\bar{w}}}{|w|} * 10 \text{ für alle $w$ mit } Po(w) < 0.1
+		\end{align*}	
 \end{itemize}
+		
+Eine weitere Maßnahme um zu verhindern, dass extrem seltene Worte als Trend erkannt werden, berechnen wir den Mittelwert aller Erwartungswerte der Worte mit einer Auftrittshäufigkeit < 0.1. Damit ein Wort dieses Clusters als Trend erkannt werden kann, muss die relative Tagesfrequenz diesen Wert um das Zehnfache übersteigen.
+
+
+ 		
+			

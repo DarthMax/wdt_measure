@@ -32,7 +32,7 @@ Aber auch bei kleinerer Datenmengen ist das Erkennen von Trends bzw. Anomalien n
 
 %##########################################
 \chapter{Maße zur Trend-Detection}
-Im folgenden Abschnitt werden fünf Methoden vorgestellt, die f\"uer jedes Wort eines Tageskorpus eine Ma\ss zahl bestimmen, die die Relevanz des Wortes an diesem Tag ausdr\"ucken soll.
+Im folgenden Abschnitt werden fünf Methoden vorgestellt, die f\"uer jedes Wort eines Tageskorpus eine Maßzahl bestimmen, die die Relevanz des Wortes an diesem Tag ausdrücken soll.
 
 %#####################
 \input{parts/poisson_etc.tex}
@@ -59,18 +59,14 @@ Die Abbildung~\ref{pic.time_airplane} stellt beispielhaft die Ergebnisse für da
 % Hier Beispiel Flugzeug
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.82\textwidth]{pictures/timeflugzeug.png}
+    \includegraphics[width=0.82\textwidth]{pictures/timeFlugzeug.png}
     \caption{Illustration des gleitenden Fensters anhand des Wortes Flugzeug. Die rote Linie stellt die berechneten Werte dar. Die größe des Zeitfensters zur Durchschnittsbildung konnte leider nicht rekonstruiert werden (Annahme 8, da die ersten 7 Tage nicht geplottet sind). }\label{pic.time_airplane}
 \end{figure}
 
  
-%\chapter{Cleaning}
 
-%##########################################
-%\chapter{Cleaning}
-%Es sollen Datumsangaben und evtl.\ neu auftauchende strukturelle Angaben ausgefiltert werden.\\
-%Ansatz: Regelbasiert.\\
-%Gibt es Maße, die solche Angaben strukturell ausschließen?
+%Cleanning ##########################################
+\input{parts/cleaning.tex}
 
 
 

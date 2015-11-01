@@ -82,10 +82,9 @@ INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
 -- Gibt die 100 signifikantesten Worte des Tages aus
 -- ==================================================
 SELECT @threshold:=(
-    SELECT AVG(daily_words.relative_freq) 
-        FROM deu_news_2014.aliss15a_words words 
-            JOIN deu_news_2014.aliss15a_daily_words daily_words ON daily_words.w_id=words.w_id
-        WHERE words.relative_document_frequency < 0.1
+    SELECT AVG(mean) 
+        FROM deu_news_2014.aliss15a_words 
+        WHERE relative_document_frequency < 0.1
 );
 SELECT 
             now.z_score,
@@ -102,7 +101,7 @@ SELECT
         JOIN words as now_words on now_words.w_id = now.w_id
         JOIN deu_news_2014.words as ref on now_words.word = ref.word
         JOIN deu_news_2014.aliss15a_words as ref_aliss on ref.w_id = ref_aliss.w_id
-        WHERE now.date=Date("2015-01-01") AND ((now.relative_freq > (@threshold*10) AND ref_aliss.relative_document_frequency < 0.1) OR ref_aliss.relative_document_frequency >= 0.1)  
+        WHERE now.date=Date("2015-10-31") AND ((now.relative_freq > (@threshold*10) AND ref_aliss.relative_document_frequency < 0.1) OR ref_aliss.relative_document_frequency >= 0.1)  
         ORDER BY now.z_score desc
         LIMIT 100;
         

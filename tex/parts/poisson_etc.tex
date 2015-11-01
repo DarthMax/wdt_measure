@@ -24,9 +24,7 @@ Um diesem Problem gerecht zu werden hilft es ein Maß für die Relevanz eines Wo
 
 
 \section{Poisson-Maß}\label{subsec.poisson}
-Die Idee dieses Ansatzes ist es ein Maß zu nutzen, das die Wahrscheinlich Ausdrückt die gemessene Anzahl von Tokens eines Wortes an einem Tag zu beobachten. Auch hier wird zur Erstellung des Maßes  das Referenz
-
-korpus des letzten Jahres genutzt. Die Annahme dieses Ansatzes ist nun, dass dieser Wahrscheinlichkeit die Poisson-Verteilung zugrundeliegt.\\
+Die Idee dieses Ansatzes ist es ein Maß zu nutzen, das die Wahrscheinlich Ausdrückt die gemessene Anzahl von Tokens eines Wortes an einem Tag zu beobachten. Auch hier wird zur Erstellung des Maßes das Referenzkorpus des letzten Jahres genutzt. Die Annahme dieses Ansatzes ist nun, dass dieser Wahrscheinlichkeit die Poisson-Verteilung zugrunde liegt.\\
 Die Formel~\ref{equ.poisson} ist die Poisson-Verteilung nach~\cite[S. 338 ff]{heyer06}.
 	\begin{equation}\label{equ.poisson}
 	P_\lambda(k) = \frac{\lambda^{k}}{k!}  \cdot e^{-\lambda}
@@ -38,7 +36,7 @@ Die Formel~\ref{equ.poisson} ist die Poisson-Verteilung nach~\cite[S. 338 ff]{he
 
 
 In Abbildung~\ref{pic.poisson_algemein} ist exemplarisch die Wahrscheinlichkeit der Beobachtung der Token-Häufigkeit des Wortes Flugzeug abgebildet. Die Annahme besagt nun, dass je kleiner die Wahrscheinlichkeit
-ist, desto relevanter erscheint ein Wort. \\
+ist, desto relevanter erscheint ein Wort.
 
 \begin{figure}[h!]
     \centering
@@ -46,11 +44,11 @@ ist, desto relevanter erscheint ein Wort. \\
     \caption{Illustration der Poissonverteilung des Token \enquote{Flugzeug} am 25.03.2015}\label{pic.poisson_algemein}
 \end{figure}
 
-An der Darstellung wird ein Nachteil dieser Methode deutlich. Nicht nur, wenn ein Token unerwartet oft beobachtet werden kann, auch wenn er seltener als erwartet beobachtet werden kann sinkt die Wahrscheinlichkeit nach diesem Modell beobachtet zu werden und es erscheint als relevantes Wort. Dieses Problem öst die im Folgenden beschriebene Transformation.\\
+An der Darstellung wird ein Nachteil dieser Methode deutlich. Nicht nur, wenn ein Token unerwartet oft beobachtet werden kann, auch wenn er seltener als erwartet beobachtet werden kann sinkt die Wahrscheinlichkeit nach diesem Modell beobachtet zu werden und es erscheint als relevantes Wort. Dieses Problem löst die im Folgenden beschriebene Transformation.\\
 
 Ein weiteres Problem stellt der Rechenaufwand für diese Methode dar, da die Fakultät des tatsächlichen Auftretens $k$ eines Wortes berechnet werden muss. Die Herrleitung eines einfacher zu berechnenden 
-equivalenten Maß es liefert~\cite[S. 338 ff]{heyer06}. Zu erwähnen ist, dass im Kontext dieser Herleitung wird das Maß allerdings nicht zur Bestimmung von in dieser Arbeit als relevant angesehenen Einzelwörtern genutzt. Sondern zur Bestimmung von signifikanten Kookurenzen. \\
-Die Hergeleitete Formel~\ref{equ.poisson_mass} liefert drei Vorteile. Eine Berechnung der Fakultät ist nicht notwendig, die Anwendung des Logarithmus liefert ein positiven Wert für unwahrscheinliche Beobachtungen, wobei die differenzen gereade bei unwahrscheinlichen Beobachtungen stärker ins Gewicht fallen und yu letzt werden die Wahrschinlichkeiten für seltener als erwartete Tokenzahlen nicht berücksichtigt. 
+equivalenten Maßes liefert~\cite[S. 338 ff]{heyer06}. Zu erwähnen ist, dass im Kontext dieser Herleitung das Maß allerdings nicht zur Bestimmung von in dieser Arbeit als relevant angesehenen Einzelwörtern genutzt wird, sondern dient zur Bestimmung signifikanter Kookurenzen. \\
+Die Hergeleitete Formel~\ref{equ.poisson_mass} bietet drei Vorteile. Eine Berechnung der Fakultät ist nicht notwendig, die Anwendung des Logarithmus liefert ein positiven Wert für unwahrscheinliche Beobachtungen, wobei die Differenzen gerade bei unwahrscheinlichen Beobachtungen stärker ins Gewicht fallen und zu Letzt werden die Wahrscheinlichkeiten für seltener als erwartet auftretende Worte nicht berücksichtigt. 
  \begin{equation}\label{equ.poisson_mass}
 		sig_{poisson}(w) = \frac{k(\log(k)-\log(n\cdot p) -1)}{\log(n)} 
  \end{equation}
@@ -58,7 +56,7 @@ k:= Anzahl der Token von w in Tagesbericht\\
 n:= Anzahl der Tokens in Tagesbericht\\
 p:= relativer Anteil eines Tokens am Jahreskorpus\\
 
-Die Abbildung~\ref{pic.poisson_mass} illustriert die Entwicklung des Poissonmaß es bezogen auf die Variation des Vorkommens des Tokens Flugzeug. Hier wird sichtbar, dass die unterrepräsentetion keinen positiven Wert erzeugt und somit keinen Einfluss auf eine nach diesem Maß  geordnete Liste hat. In der Praxis sind genügend positive Werte dieses Maß es zu beobachten.\\
+Die Abbildung~\ref{pic.poisson_mass} illustriert die Entwicklung des Poissonmaßes es bezogen auf die Variation des Vorkommens des Tokens Flugzeug. Hier wird sichtbar, dass die unterrepräsentetion keinen positiven Wert erzeugt und somit keinen Einfluss auf eine nach diesem Maß  geordnete Liste hat. In der Praxis sind genügend positive Werte dieses Maß es zu beobachten.\\
 Die Formel~\ref{equ.poisson_mass} wurde im praktischen Teil dieser Arbeit genutzt.\\
  
 % Hier Beispiel Flugzeug
@@ -70,7 +68,7 @@ Die Formel~\ref{equ.poisson_mass} wurde im praktischen Teil dieser Arbeit genutz
 
 
 \subsubsection{Bemerkungen zur Berechnung des Poisson-Maßes}
-Die derzeitige Implementierung im Wortschatzporjekt der Universität Leipzig benutzt als Normierungsfaktor nicht die Anzahl aller Tokens im Tagesbericht. Auch zur Bestimmung des relativen Anteils eines Token am Jahreskorpus wird nicht die Anzahl der aller Tokens im Jahreskorpus, sondern die Anzahl der Sätze imJahreskorpus verwendet. Da bei der verwendeten Zahl von Sätzen das Verhältnis der Anzahl der Wörter zu der Anzahl der Sätze als konstant anzunehmen ist ($\approx 10$), scheint dies gerechtfertigt wie in~\ref{equ.word_sentence} formalisiert. 
+Die derzeitige Implementierung im Wortschatzporjekt der Universität Leipzig benutzt als Normierungsfaktor nicht die Anzahl aller Tokens im Tagesbericht. Auch zur Bestimmung des relativen Anteils eines Token am Jahreskorpus wird nicht die Anzahl der aller Tokens im Jahreskorpus, sondern die Anzahl der Sätze im Jahreskorpus verwendet. Da bei der verwendeten Zahl von Sätzen das Verhältnis der Anzahl der Wörter zu der Anzahl der Sätze als konstant anzunehmen ist ($\approx 10$), scheint dies gerechtfertigt wie in~\ref{equ.word_sentence} formalisiert. 
 \begin{equation}\label{equ.word_sentence}
 \frac{|\text{Sätze}_{heute}|}{|\text{Sätze}_{jahr}|} \approx \frac{|Token_{heute}|}{|Token_{Jahr}|}
 \end{equation}
@@ -84,6 +82,7 @@ sig_{tf idf}(w) = \frac{k}{\max(K)} \cdot \log ( \frac{365}{|documentdays(w)|})
 \end{equation}
 $k$: Frequenz eines Tokens an einem Tag\\
 $K$: Alle Frequenzen an einem Tag\\
+
 Als Modifikation wird hier das gängige Verfahren der Logarithmisierung der inversen Dokumentfrequenz angewendet. Des weiteren wird, um eine Vergleichbarkeit über verschiedene Tage hinweg herrstellen zu könnnen, eine Relativierung der Frequenz auf Frequenz des häufigsten Tokens am Tag durchgeführt. Die graue Linie repräsentiert den idf-Wert, der zu der Entsprechung der relativen Tagesfrequenz führt, denn der Logarithmus von 2,7 ist ungefähr 1. Das entspricht dem Auftreten in ca. 8 Tagen des Referenzjahres.\\
 % Hier Beispiel Flugzeug
 \begin{figure}[h!]
