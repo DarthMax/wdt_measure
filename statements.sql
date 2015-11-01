@@ -38,7 +38,7 @@ select @der_id:=(select w_id from words where word='der');
 INSERT INTO aliss15a_daily_words (w_id,date,relative_freq) (
     SELECT w_id, daily_words.date, (daily_words.freq/daily_der.freq) 
         FROM daily_words 
-            JOIN (SELECT date, freq FROM daily_words WHERE w_id=@der_id) AS daily_der ON daily_der.date=daily_words.date
+            JOIN (SELECT date, freq FROM daily_words WHERE w_id=@der_id) AS daily_der ON daily_der.date=daily_words.date   
 ) ON DUPLICATE KEY UPDATE relative_freq=values(relative_freq);
 
 
@@ -65,7 +65,13 @@ INSERT INTO aliss15a_words (w_id,relative_document_frequency) (
 
 
 
--- Calculate Z-Score pro Wort und Tag für 2015
+
+
+
+
+-- Z-Score
+--=========
+
 INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
     SELECT 
             now.w_id,
@@ -75,12 +81,10 @@ INSERT INTO aliss15a_daily_words (w_id, date, z_score) (
         FROM aliss15a_daily_words as now
         JOIN words as now_words on now_words.w_id = now.w_id
         JOIN deu_news_2014.words as ref on now_words.word = ref.word
-        JOIN deu_news_2014.aliss15a_words as ref_aliss on ref.w_id = ref_aliss.w_id
+        JOIN deu_news_2014.aliss15a_words as ref_aliss on ref.w_id = ref_aliss.w_id 
 ) ON DUPLICATE KEY UPDATE z_score=values(z_score);
 
 
--- Gibt die 100 signifikantesten Worte des Tages aus
--- ==================================================
 SELECT @threshold:=(
     SELECT AVG(mean) 
         FROM deu_news_2014.aliss15a_words 
@@ -89,11 +93,6 @@ SELECT @threshold:=(
 SELECT 
             now.z_score,
             now_daily_words.freq,
-            now.relative_freq,
-            ref_aliss.mean,
-            ref_aliss.standard_derivation,
-            ref_aliss.relative_document_frequency,
-            ref.word,
             now_words.word
         
         FROM aliss15a_daily_words as now
@@ -121,9 +120,22 @@ INSERT INTO aliss15a_daily_words (w_id, date, tf_idf) (
 ) ON DUPLICATE KEY UPDATE tf_idf=VALUES(tf_idf); 
 
 
+
+SELECT 
+        now.tf_idf,
+        now_daily_words.freq,
+        now_words.word
+    FROM aliss15a_daily_words as now
+    JOIN daily_words as now_daily_words on now.w_id = now_daily_words.w_id and now.date = now_daily_words.date
+    JOIN words as now_words on now_words.w_id = now.w_id
+    WHERE now.date=Date("2015-10-31")
+    ORDER BY now.tf_idf desc
+    LIMIT 100;
+
+        
+        
 -- POISSON NEU  (inkl freqration neu) 
 -- ==================================
-
  
 SELECT @total_frequence_2014 := (
     SELECT       SUM(freq) 
@@ -135,7 +147,7 @@ INSERT INTO aliss15a_daily_words (w_id, date, poisson, freqratio) (
     SELECT  words2015.w_id, 
             day.date,
             day.freq * (log(day.freq)-log(daily_freq_sums.freq_sum * (year.freq+day.freq)/@total_frequence_2014)-1) / log(daily_freq_sums.freq_sum) AS poisson,
-            freqratio = (@total_frequence_2014/daily_freq_sums.freq_sum) * day.freq / year.freq AS freqratio 
+            (@total_frequence_2014/daily_freq_sums.freq_sum) * day.freq / year.freq AS freqratio 
     FROM    daily_words day
             LEFT OUTER JOIN  words words2015 
             ON               words2015.w_id=day.w_id 
@@ -149,7 +161,47 @@ INSERT INTO aliss15a_daily_words (w_id, date, poisson, freqratio) (
 ) ON DUPLICATE KEY UPDATE poisson=VALUES(poisson), freqratio = VALUES(freqratio);
 
 
+SELECT 
+        now.poisson,
+        now_daily_words.freq,
+        now_words.word
+    FROM aliss15a_daily_words as now
+    JOIN daily_words as now_daily_words on now.w_id = now_daily_words.w_id and now.date = now_daily_words.date
+    JOIN words as now_words on now_words.w_id = now.w_id
+    WHERE now.date=Date("2015-10-31")
+    ORDER BY now.poisson desc
+    LIMIT 100;
+    
+    
+    
+    
+    
+-- FREQURATION
+--============
 
+INSERT INTO aliss15a_daily_words (w_id, date, freqratio) (
+    SELECT 
+            now.w_id,
+            now.date, 
+            (now.relative_freq / ref_aliss.mean)
+        
+        FROM aliss15a_daily_words as now
+        JOIN words as now_words on now_words.w_id = now.w_id
+        JOIN deu_news_2014.words as ref on now_words.word = ref.word
+        JOIN deu_news_2014.aliss15a_words as ref_aliss on ref.w_id = ref_aliss.w_id 
+) ON DUPLICATE KEY UPDATE freqratio=values(freqratio);
+
+
+SELECT 
+        now.freqratio,
+        now_daily_words.freq,
+        now_words.word
+    FROM aliss15a_daily_words as now
+    JOIN daily_words as now_daily_words on now.w_id = now_daily_words.w_id and now.date = now_daily_words.date
+    JOIN words as now_words on now_words.w_id = now.w_id
+    WHERE now.date=Date("2015-10-31")
+    ORDER BY now.freqratio desc
+    LIMIT 100;
 
 
 -- INDEXIERUNG VERBESSERN
@@ -159,6 +211,32 @@ ALTER TABLE aliss15a_daily_words ADD KEY(w_id) USING HASH; -- nicht mehr noetig,
 ALTER TABLE aliss15a_daily_words ADD KEY(date); -- 
 
  
+-- Regex 
+ 
+ '^[[:digit:]]{2}.[[:digit:]]{2}(.[[:digit:]]{2,4})?$' -- filters dates 12.04, 12.04.15, 12.04.2015
+ '^[[:digit:]]{2}.[[:blank:]]?(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)$' -- filters dates 12. April
+ '[[:digit:]]{2}:[[:digit:]]{2}' -- filters time statements
+ '[[:digit:]]{2}[[:blank:]]?°C?' -- filters temperature statements
+ 
+ 
+ SET lc_time_names = 'de_DE';
+ CONCAT("^(",
+    CONCAT_WS("|",
+        DATE_FORMAT(CURDATE(),"%d.%c.%Y"),
+        DATE_FORMAT(CURDATE(),"%d.%c.%y"),
+        DATE_FORMAT(CURDATE(),"%d.%c"),
+        DATE_FORMAT(CURDATE(),"%d. %M"),
+        DATE_FORMAT(CURDATE()-1,"%d.%c.%Y"),
+        DATE_FORMAT(CURDATE()-1,"%d.%c.%y"),
+        DATE_FORMAT(CURDATE()-1,"%d.%c"),
+        DATE_FORMAT(CURDATE()-1,"%d. %M"),
+        DATE_FORMAT(CURDATE()+1,"%d.%c.%Y"),
+        DATE_FORMAT(CURDATE()+1,"%d.%c.%y"),
+        DATE_FORMAT(CURDATE()+1,"%d.%c")
+        DATE_FORMAT(CURDATE()+1,"%d. %M"),
+    ),
+    ")$");
+    
  
  
  

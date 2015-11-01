@@ -1,0 +1,70 @@
+Aufgrund des fehlenden Goldstandards und Expertenwissen ist ein qualitativer Vergleich nur mittels Stichproben möglich. Jedoch ist selbst bei diesem Ansatz ein Bewertung der Ergebnisse schwierig. Wir haben uns daher entschieden den Vergleich an einem Tag durchzuführen und haben den 31.10.2015 ausgewählt. 
+Für diesen Tag konnten wir daher zuerst mittels der Nachrichten eine Menge an Themen als Erwartungswert zusammenstellen. Wir erwarten daher, dass Begriffe welche diesem Thema zugeordnet werden können in den jeweiligen Listen vorkommen. 
+Die Themen sind: Wahl in der Türkei, Flugzeugabsturz über dem Sinai, Flchtlingskrise, 
+
+
+
+\begin{table}
+\centering
+\resizebox{\textwidth}{!}{
+
+\begin{tabular}{c|c|c|c}
+\hline
+Freqratio 							   & TF-IDF 					 & POISSON 						 & Z-Score \\
+\hline
+
+Zoo Leipzig               (129.6, 210) & Zoo Leipzig        (12,0, 210) & Zoo Leipzig         (69.3, 210) & Übergabe-          (7231.5,  10) \\
+Flüchtlingskrise          (118.8, 124) & Gondwanaland       ( 8.2,  92) & Flüchtlinge         (67.9, 750) & Michls             ( 711.0,   8) \\
+Gondwanaland              ( 94.7,  92) & Transitzonen       ( 7.6,  32) & Mohamed             (33.9, 172) & Ufo-Chef           ( 593.5,   7) \\
+Transitzonen              ( 82.0,  32) & Flüchtlingskrise   ( 7.2, 124) & Gondwanaland        (32.1, 92 ) & Niedergörsdorf     ( 232.4,  16) \\
+Lesbos                    ( 65.1,  62) & Graulich           ( 5.6,  42) & Zoo                 (31.6, 245) & Sachon             ( 217.3,   9) \\
+lenkbare                  ( 61.9,  38) & Lesbos             ( 5.4,  62) & Mourinho            (29.2, 176) & 9268               ( 200.1,  12) \\
+Hefei                     ( 51.1,  35) & Gräbersegnung      ( 4.6,  27) & Halloween           (22.9, 134) & Zoo Leipzig        ( 159.4, 210) \\
+Elias                     ( 51.0, 187) & einDie             ( 4.5,  19) & Lesbos              (20.9, 62 ) & Christian Möckel   ( 120.7,   7) \\
+Mohamed                   ( 42.3, 172) & Hefei              ( 4.3,  35) & Cuspert             (15.4, 72 ) & Flüchtlingskrise   ( 119.2, 124) \\
+A-321                     ( 41.9,  17) & A-321              ( 4.0,  17) & Polanski            (15.2, 68 ) & Manuva             ( 118.9,   8) \\
+Gräbersegnung             ( 41.8,  27) & Beilin             ( 3.8,  20) & Gasquet             (15.1, 66 ) & Roots Manuva       ( 118.9,   8) \\
+Flüchtlingsjungen         ( 37.9,  21) & Hradecky           ( 3.8,  20) & Mexiko              (14.8, 207) & Flüchtlingsjunge   ( 116.4,  11) \\
+Niedergörsdorf            ( 34.0,  16) & lenkbare           ( 3.8,  38) & Graulich            (14.5, 42 ) & Schlaatz           ( 110.8,  13) \\
+30. Oktober               ( 33.7, 101) & Cuspert            ( 3.7,  72) & Silvio              (13.9, 93 ) & Nuthe              ( 110.6,   7) \\
+Tropenerlebniswelt        ( 33.4,  27) & Scharm el Scheich  ( 3.6,  25) & Flüchtlingen        (13.7, 174) & lenkbare           ( 103.0,  38) \\
+Hermanos                  ( 32.7,  32) & el Scheich         ( 3.6,  25) & Tsipras             (13.2, 74 ) & Hefei              (  93.2,  35) \\
+Luftbefeuchter            ( 29.8,  21) & Okt                ( 3.5,  56) & lenkbare            (13.0, 38 ) & Flüchtlingsjungen  (  90.5,  21) \\
+Spielemagazin             ( 28.7,  21) & Cryan              ( 3.5,  26) & Sinai-Halbinsel     (12.6, 56 ) & Hadassah           (  83.7,   8) \\
+Graulich                  ( 27.9,  42) & Scharm             ( 3.4,  37) & Hefei               (12.4, 35 ) & Bugün              (  81.9,  11) \\
+Polanski                  ( 27.5,  68) & Flüchtlingsjungen  ( 3.3,  21) & Transitzonen        (12.4, 32 ) & Gondwanaland       (  71.2,  92) \\
+Klingonisch               ( 27.2,  20) & Gasquet            ( 3.2,  66) & Sinai               (12.2, 65 ) & Gräbersegnung      (  68.0,  27) \\
+Balkanroute               ( 26.8,  20) & IS                 ( 2.9, 249) & Scharm              (11.4, 37 ) & Mets               (  66.8,  11) \\
+Schlaatz                  ( 26.8,  13) & Niedergörsdorf     ( 2.9,  16) & Seehofer            (11.1, 177) & Lesbos             (  62.5,  62) \\
+Wegscheid                 ( 26.8,  18) & Hauser-Süess       ( 2.9,  15) & Syrien              (11.0, 413) & Polański           (  62.4,  10) \\
+Ägäis                     ( 26.8,  35) & studiKURIER        ( 2.8,  12) & Nadal               (10.9, 125) & Annaud             (  57.0,   8) \\
+9268                      ( 26.3,  12) & Tropenerlebniswelt ( 2.8,  27) & griechischen        (10.9, 122) & Feuerwerksshow     (  54.2,  11) \\
+Hauser-Süess              ( 25.9,  15) & Neubronner         ( 2.7,  17) & Gräbersegnung       (10.1, 27 ) & Hauser-Süess       (  53.7,  15) \\
+Selektoren                ( 25.6,  24) & Waldhauer          ( 2.6,  18) & Passau              ( 9.5, 58 ) & Elias              (  52.5, 187) \\
+Sinai                     ( 25.4,  65) & Balkanroute        ( 2.6,  20) & Blick-Abo           ( 9.3, 38 ) & Hasskommentare     (  50.8,   7) \\
+Passau                    ( 25.3,  58) & Instantbird        ( 2.6,  11) & Spezialdienste      ( 9.3, 46 ) & Luftbefeuchter     (  49.9,  21) \\
+Flüchtlingsjunge          ( 24.9,  11) & Kochanowski        ( 2.6,  11) & Tropenerlebniswelt  ( 8.7, 27 ) & 4Players.de        (  47.8,  42) \\
+Blacks                    ( 24.5,  23) & Tsipras            ( 2.5,  74) & 31. Oktober         ( 8.6, 70 ) & Mohamed            (  46.4, 172) \\
+studiKURIER               ( 24.3,  12) & 9268               ( 2.5,  12) & Lageso              ( 8.6, 35 ) & Balkan-Route       (  45.7,  11) \\
+Osterspektakel            ( 24.2,  10) & Rugby-WM           ( 2.4,  19) & Scharm el Scheich   ( 8.6, 25 ) & Wegscheid          (  44.1,  18) \\
+Gasquet                   ( 24.2,  66) & Parmelin           ( 2.4,  18) & el Scheich          ( 8.6, 25 ) & Hermanos           (  41.5,  32) \\
+Mourinho                  ( 24.0, 176) & Halloween          ( 2.4, 134) & Leipzig             ( 8.5, 286) & Balkanroute        (  39.1,  20) \\
+Blick-Abo                 ( 23.9,  38) & Overwatch          ( 2.4,  24) & Gutierrez           ( 8.5, 65 ) & News Archiv        (  38.7,  11) \\
+Manuva                    ( 23.4,   8) & Lageso             ( 2.4,  35) & Cryan               ( 8.5, 26 ) & Blick-Abo          (  38.4,  38) \\
+Roots Manuva              ( 23.4,   8) & Varoufakis         ( 2.3,  15) & Hermanos            ( 8.4, 32 ) & Beilin             (  38.4,  20) \\
+4Players.de               ( 23.3,  42) & Dschungelnacht     ( 2.3,  16) & Klopp               ( 8.3, 153) & Bob Ross           (  37.6,  14) \\
+Russisches                ( 23.1,  31) & Dupper             ( 2.3,  10) & Höttges             ( 8.2, 56 ) & 6P                 (  37.4,   7) \\
+Übergabe-                 ( 22.9,  10) & Osterspektakel     ( 2.3,  10) & Verstappen          ( 8.2, 72 ) & Syrien-Gipfel      (  36.8,  11) \\
+Kiwara-Savanne            ( 22.9,  15) & Schlaatz           ( 2.3,  13) & Ägäis               ( 7.8, 35 ) & EKP                (  36.2,   9) \\
+Goetz                     ( 22.9,  25) & Blick-Abo          ( 2.3,  38) & Flüchtlingsjungen   ( 7.7, 21 ) & Abgastests         (  35.9,   9) \\
+Sinai-Halbinsel           ( 22.8,  56) & Klingonisch        ( 2.3   20) & Liverpool           ( 7.7, 109) & Tropenerlebniswelt (  35.5,  27) \\
+Bukarester                ( 22.8,  19) & Polanski           ( 2.2,  68) & 4Players.de         ( 7.6, 42 ) & Selektoren         (  35.2,  24) \\
+Luckenwalde               ( 22.8,  26) & Sinai-Halbinsel    ( 2.2,  56) & Hradecky            ( 7.4, 20 ) & Kiwara-Savanne     (  34.9,  15) \\
+Beilin                    ( 22.7,  20) & Wegscheid          ( 2.1,  18) & ausblenden          ( 7.4, 70 ) & Spielemagazin      (  34.7,  21) \\
+Zerstörungskraft          ( 22.5,  19) & Afro-Pfingsten     ( 2.1,   9) & Beilin              ( 7.4, 20 ) & Antena             (  33.7,  11) \\
+Halloween                 ( 22.3, 134) & Junhold            ( 2.1,  21) & Grip                ( 7.3, 58 ) & Schweinevogel      (  33.3,  10) \\
+\hline
+\end{tabular}
+}
+\caption{Vergleich der unterschiedlichen Algorithmen am Beispiel des 31.10.2015. Gezeigt werden die 100 relevantesten Worte und in Klammern jeweils der Score und die Tagesfrequenz}
+\end{table}
