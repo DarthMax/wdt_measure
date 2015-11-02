@@ -16,20 +16,20 @@
 \section{Aufgabenstellung}
 Das Portal  \emph{Wörter des Tages}\footnote{\url{http://wortschatz.uni-leipzig.de/wort-des-tages}, Abgerufen am 29.10.2015,~9:34~Uhr} stellt eine Übersicht von Wörtern, die an einem ausgewählten Tag besonders relevant erschienen dar (Siehe Abbildung~\ref{pic.homepage}). Die Wörter sind in neun Kategorien eingeordnet. Nach der Beschreibung auf der Website werden die Wörter ermittelt in dem die tagesaktuelle Häufigkeit eines Wortes mit seiner durchschnittlichen Häufigkeit über längere Zeit hinweg gemessen wird.\\
 Die Aufgabe dieser Arbeit ist es verschiedene Möglichkeiten der Bestimmung von Wörtern, die an einem gewählten Tag von besonderer Relevanz sind zu beschreiben, zu vergleichen und zu evaluieren. 
-Die Datengrundlage zur Erstellung der Wörter des Tages ist ein Corpus, das durch tägliches crawlen von Newsseiten generiert wird. Die Quellen der Newseiten sind eine definierte Menge an für relevant erachtete Seiten mit Nachrichten wie zum Beispiel \emph{Spiegel.de}.\\
-Bei allen Ansätzen, die auf das Vorkommen in einem Referenzzeitraum rekurrieren besteht das Korpus aus allen gecrawlten Newsseiten des voragngegangenen Jahres (2014).
+Die Datengrundlage zur Erstellung der Wörter des Tages ist ein Corpus, das durch tägliches crawlen von Newsseiten generiert wird. Die Quellen der Newsseiten sind eine definierte Menge an für relevant erachtete Seiten mit Nachrichten wie zum Beispiel \emph{Spiegel.de}.\\
+Bei allen Ansätzen, die auf das Vorkommen in einem Referenzzeitraum rekurrieren besteht das Korpus aus allen gecrawlten Newsseiten des vorangegangenen Jahres (2014).
 Als Zusatzaufgabe soll ein musterbasiertes Verfahren in SQL entworfen werden, das es ermöglicht aufgrund eines gewählten Verfahrens falsch identifizierte Wörter zu filtern. Ein Beispiel hierfür sind Datumsangaben, die als relevant erscheinen, da sie Tagesaktuell oft auftauchen, aber im Vergleichszeitraum selten.
 
 %##########################################
 \section{Vergleichbare Ansätze}
 Das Problem der Trenderkennung ist ein vielfältiges Problem mit einer großen Bandbreite an Anwendungsgebieten. Eine der vielleicht populärsten Anwendungen ist die Erkennung von Trendbegriffen bei Twitter, einem Microbloging-Dienst mehreren hundert Millionen Nutzern und 500 Mio Tweets täglich. Aufgrund dieser immensen Vielfalt an Nutzern und Nachrichten ist es möglich, dass hochaktuelle Nachrichten und Neuigkeiten rasend schnell global verbreitet werden können. Mithilfe von Trendanalyse ist es möglich globale aber auch lokale Entwicklungen zeitig zu erfassen und zu analysieren.
-Einen ähnlichen Ansatz verfolgt das Google Projekt \emph{Google Trends}. Hier werden die Suchenanfragen der weltweit größten Websuchmaschine ausgewertet, wodurch die zeitabhängige Auswertung einzelner Suchbegriffe möglich wird. \\
-Aber auch bei kleinerer Datenmengen ist das Erkennen von Trends bzw. Anomalien nützlich. Angewand auf Logdateien ist es so zum Beispiel möglich Angriffe auf ein Computersystem zu erkennen. \cite{Zwietasch14}
+Einen ähnlichen Ansatz verfolgt das Google Projekt \emph{Google Trends}. Hier werden die Suchanfragen der weltweit größten Websuchmaschine ausgewertet, wodurch die zeitabhängige Auswertung einzelner Suchbegriffe möglich wird. \\
+Aber auch bei kleinerer Datenmengen ist das Erkennen von Trends bzw. Anomalien nützlich. Angewandt auf Logdateien ist es so zum Beispiel möglich Angriffe auf ein Computersystem zu erkennen. \cite{Zwietasch14}
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=1\textwidth]{pictures/wdt_homepage.png}
-    \caption{Hompage des Projekts \emph{Wörter des Tages} des Wortschatz Projekts der Universität Leipzig vom 31.10.2015}\label{pic.homepage}
+    \caption{Homepage des Projekts \emph{Wörter des Tages} des Wortschatz Projekts der Universität Leipzig vom 31.10.2015}\label{pic.homepage}
 \end{figure}
 
 
@@ -38,7 +38,7 @@ Aber auch bei kleinerer Datenmengen ist das Erkennen von Trends bzw. Anomalien n
 
 %##########################################
 \chapter{Maße zur Trend-Detection}
-Im folgenden Abschnitt werden fünf Methoden vorgestellt, die f\"uer jedes Wort eines Tageskorpus eine Maßzahl bestimmen, die die Relevanz des Wortes an diesem Tag ausdrücken soll.
+Im folgenden Abschnitt werden fünf Methoden vorgestellt, die für jedes Wort eines Tageskorpus eine Maßzahl bestimmen, die die Relevanz des Wortes an diesem Tag ausdrücken soll.
 
 %#####################
 \input{parts/poisson_etc.tex}
@@ -61,7 +61,7 @@ Es wurde eine Pipeline in R geschrieben um geglättete Tagesfrequenzen zu berech
 \item Reshape der Daten II: Umformung in die Ursprüngliche Form mit einem Wort pro Zeile (melt)
 \item Schreiben der berechneten Daten in die Datenbank 
 \end{enumerate}
-Die Abbildung~\ref{pic.time_airplane} stellt beispielhaft die Ergebnisse für das Wort Flugzeug dar. Mit der genutzten Bibliothek kann leicht durch Parameter die größe des Fensters angepasst werden.\footnote{Verwendete Funktion in R dokumentiert in: \url{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/filter.html}, Abgerufen am 30.10.2015, 18:55 Uhr.}
+Die Abbildung~\ref{pic.time_airplane} stellt beispielhaft die Ergebnisse für das Wort Flugzeug dar. Mit der genutzten Bibliothek kann leicht durch Parameter die Größe des Fensters angepasst werden.\footnote{Verwendete Funktion in R dokumentiert in: \url{https://stat.ethz.ch/R-manual/R-devel/library/stats/html/filter.html}, Abgerufen am 30.10.2015, 18:55 Uhr.}
 % Hier Beispiel Flugzeug
 \begin{figure}[h!]
     \centering
@@ -98,8 +98,8 @@ Die Messung der Güte der Ergebnisse stellt eine Herausforderung dar, da es kein
 
 % SCHLUSS #####################################################################################
 \chapter{Bewertung und Zusammenfassung}\label{schluss}
-Die Untersuchung der Vergleichsmaße hat das im Projekt \emph{Wörter des Tages} genutzte Poisson Vergleichsmaß als geeignet indentifiziert. Als interessante Verbesserungen wurde die Einbeziehung der Anzahl von Quellen an einem Tag, in denen ein Kandidat auftaucht. Diesen Wert in die Berechnung für ein Maß mit einzubeziehen wurde ausgeschlossen, da bei derzeitigem Datenbankschema die Berechnungzeiten gerade für höherfrequente Worte als zu lang angesehen werden. Das Z-Score Maß liefert auch gute Ergebnisse, allerdings tauchen mehr niederfrequente Worte in der Top-Wort-Liste auf.\\
-Die im Abschnitt~\ref{cleaning} aufgeführten regulären Ausdrücke werden als geeignetes Mittel vorgestellt um aktuelle Datumsangaben zu filtern. Eine weitere Methode um strukturbedingt auftauchende Wörter zu filltern liefert die Einbeziehung der oben gennanten Tages-Quellenfrequenz. Tauch ein Wort in den Top-Listen auf, hat aber nur wenige Quellen, weißt das darauf hin, dass es kein Wort ist, welches das tagesaktuelle Geschehen repräsentiert. Viel mehr ist es ein Hinweis auf ein Wort, dass für dass Mass ein außergewöhnliche strukturelle Form widerspiegelt, wie beispielsweise der Name einer interviewten Person, der bei jeder Aussage im Interview wieder genannt wird und deshalb eine hohe Frequenz besitzt.\\
+Die Untersuchung der Vergleichsmaße hat das im Projekt \emph{Wörter des Tages} genutzte Poisson Vergleichsmaß als geeignet identifiziert. Als interessante Verbesserungen wurde die Einbeziehung der Anzahl von Quellen an einem Tag, in denen ein Kandidat auftaucht. Diesen Wert in die Berechnung für ein Maß mit einzubeziehen wurde ausgeschlossen, da bei derzeitigem Datenbankschema die Berechnungszeiten gerade für hochfrequente Worte als zu lang angesehen werden. Das Z-Score Maß liefert auch gute Ergebnisse, allerdings tauchen mehr niederfrequente Worte in der Top-Wort-Liste auf.\\
+Die im Abschnitt~\ref{cleaning} aufgeführten regulären Ausdrücke werden als geeignetes Mittel vorgestellt um aktuelle Datumsangaben zu filtern. Eine weitere Methode um strukturbedingt auftauchende Wörter zu filtern liefert die Einbeziehung der oben genannten Tages-Quellenfrequenz. Tauch ein Wort in den Top-Listen auf, hat aber nur wenige Quellen, weißt das darauf hin, dass es kein Wort ist, welches das tagesaktuelle Geschehen repräsentiert. Viel mehr ist es ein Hinweis auf ein Wort, dass für dass Mass ein außergewöhnliche strukturelle Form widerspiegelt, wie beispielsweise der Name einer interviewten Person, der bei jeder Aussage im Interview wieder genannt wird und deshalb eine hohe Frequenz besitzt.\\
 Ein weiteres Mittel um Informationen zu den gefundenen Wörtern aufzubereiten ist der Ansatz der Zeitreihenanalyse, der im Rahmen dieser Arbeit nicht weiter verfolgt werden konnte. Insbesondere zur Visualisierung von Frequenzverläufen einzelner Wörter scheint dies geeignet.\\
 Ein weiteres in dieser Arbeit nicht weiter behandeltes Mittel um die Qualität der Ergebnisse zu verbessern ist die Überarbeitung der Liste an genutzten Quellen. Diese, so lassen interessante Wörter wie \emph{Zoo Leipzig} vermuten, haben teils einen regionalen sowie thematischen Schwerpunkt, der bei einer Anzahl von ungefähr 250 Quellen am Tag zu verzerrten Ergebnissen führen kann. Die Auswahl der Quellen scheint für folgende Arbeiten ein interessanter Untersuchungsgegenstand zu sein.
 
