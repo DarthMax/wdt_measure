@@ -14,7 +14,7 @@
 
 %##########################################
 \section{Aufgabenstellung}
-Das Portal  \emph{Wörter des Tages}\footnote{\url{http://wortschatz.uni-leipzig.de/wort-des-tages}, Abgerufen am 29.10.2015,~9:34~Uhr} stellt eine Übersicht von Wörtern, die an einem ausgewählten Tag besonders relevant erschienen dar. Die Wörter sind in neun Kategorien eingeordnet. Nach der Beschreibung auf der Website werden die Wörter ermittelt in dem die tagesaktuelle Häufigkeit eines Wortes mit seiner durchschnittlichen Häufigkeit über längere Zeit hinweg gemessen wird.\\
+Das Portal  \emph{Wörter des Tages}\footnote{\url{http://wortschatz.uni-leipzig.de/wort-des-tages}, Abgerufen am 29.10.2015,~9:34~Uhr} stellt eine Übersicht von Wörtern, die an einem ausgewählten Tag besonders relevant erschienen dar (Siehe Abbildung~\ref{pic.homepage}). Die Wörter sind in neun Kategorien eingeordnet. Nach der Beschreibung auf der Website werden die Wörter ermittelt in dem die tagesaktuelle Häufigkeit eines Wortes mit seiner durchschnittlichen Häufigkeit über längere Zeit hinweg gemessen wird.\\
 Die Aufgabe dieser Arbeit ist es verschiedene Möglichkeiten der Bestimmung von Wörtern, die an einem gewählten Tag von besonderer Relevanz sind zu beschreiben, zu vergleichen und zu evaluieren. 
 Die Datengrundlage zur Erstellung der Wörter des Tages ist ein Corpus, das durch tägliches crawlen von Newsseiten generiert wird. Die Quellen der Newseiten sind eine definierte Menge an für relevant erachtete Seiten mit Nachrichten wie zum Beispiel \emph{Spiegel.de}.\\
 Bei allen Ansätzen, die auf das Vorkommen in einem Referenzzeitraum rekurrieren besteht das Korpus aus allen gecrawlten Newsseiten des voragngegangenen Jahres (2014).
@@ -25,6 +25,12 @@ Als Zusatzaufgabe soll ein musterbasiertes Verfahren in SQL entworfen werden, da
 Das Problem der Trenderkennung ist ein vielfältiges Problem mit einer großen Bandbreite an Anwendungsgebieten. Eine der vielleicht populärsten Anwendungen ist die Erkennung von Trendbegriffen bei Twitter, einem Microbloging-Dienst mehreren hundert Millionen Nutzern und 500 Mio Tweets täglich. Aufgrund dieser immensen Vielfalt an Nutzern und Nachrichten ist es möglich, dass hochaktuelle Nachrichten und Neuigkeiten rasend schnell global verbreitet werden können. Mithilfe von Trendanalyse ist es möglich globale aber auch lokale Entwicklungen zeitig zu erfassen und zu analysieren.
 Einen ähnlichen Ansatz verfolgt das Google Projekt \emph{Google Trends}. Hier werden die Suchenanfragen der weltweit größten Websuchmaschine ausgewertet, wodurch die zeitabhängige Auswertung einzelner Suchbegriffe möglich wird. \\
 Aber auch bei kleinerer Datenmengen ist das Erkennen von Trends bzw. Anomalien nützlich. Angewand auf Logdateien ist es so zum Beispiel möglich Angriffe auf ein Computersystem zu erkennen. \cite{Zwietasch14}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth]{pictures/wdt_homepage.png}
+    \caption{Hompage des Projekts \emph{Wörter des Tages} des Wortschatz Projekts der Universität Leipzig vom 31.10.2015}\label{pic.homepage}
+\end{figure}
 
 
 % HAUPTTEIL THEORIE ##########################################################################
