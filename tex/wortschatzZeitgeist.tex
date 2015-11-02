@@ -46,7 +46,7 @@ Im folgenden Abschnitt werden fünf Methoden vorgestellt, die f\"uer jedes Wort 
 
 %##########################################
 \chapter{Zeitreihenanalysen}
-Es wurde eine Pipeline in R geschrieben um geglättete Tagesfrequenzen zu berechnen.\footnote{Dieser Teil des Projektes wurde von Thomas Döring verfasst, der leider zum Zeitpunkt der Fertigstellung dieser Arbeit nicht mehr auf Kommunikationsversuche antwortete.} Diese Pipeline umfasst sechs Teile. Die Programmteile sind unter thomas/v2/R/1.r~-~6.r im Projektordner zu finden.
+Es wurde eine Pipeline in R geschrieben um geglättete Tagesfrequenzen zu berechnen.\footnote{Dieser Teil des Projektes wurde von Thomas Döring verfasst, der leider nicht in der Lage war bis Ende Oktober einen Beitrag zu dieser Arbeit zu leisten.} Diese Pipeline umfasst sechs Teile. Die Programmteile sind unter thomas/v2/R/1.r~-~6.r im Projektordner zu finden.
 \begin{enumerate}
 \item Aufbau einer Verbindung mit der Datenbank
 \item Laden der Daten aus der Datenbank
@@ -84,17 +84,23 @@ Die Messung der Güte der Ergebnisse stellt eine Herausforderung dar, da es kein
 
 
 \section{Quantitativer Vergleich - Average Overlap als Vergleichma\ss}
+
+
 \input{parts/average_overlap.tex}
 
 
 
 % SCHLUSS #####################################################################################
-\chapter{Bewertung und Zusammenfassung}
+\chapter{Bewertung und Zusammenfassung}\label{schluss}
+Die Untersuchung der Vergleichsmaße hat das im Projekt \emph{Wörter des Tages} genutzte Poisson Vergleichsmaß als geeignet indentifiziert. Als interessante Verbesserungen wurde die Einbeziehung der Anzahl von Quellen an einem Tag, in denen ein Kandidat auftaucht. Diesen Wert in die Berechnung für ein Maß mit einzubeziehen wurde ausgeschlossen, da bei derzeitigem Datenbankschema die Berechnungzeiten gerade für höherfrequente Worte als zu lang angesehen werden. Das Z-Score Maß liefert auch gute Ergebnisse, allerdings tauchen mehr niederfrequente Worte in der Top-Wort-Liste auf.\\
+Die im Abschnitt~\ref{cleaning} aufgeführten regulären Ausdrücke werden als geeignetes Mittel vorgestellt um aktuelle Datumsangaben zu filtern. Eine weitere Methode um strukturbedingt auftauchende Wörter zu filltern liefert die Einbeziehung der oben gennanten Tages-Quellenfrequenz. Tauch ein Wort in den Top-Listen auf, hat aber nur wenige Quellen, weißt das darauf hin, dass es kein Wort ist, welches das tagesaktuelle Geschehen repräsentiert. Viel mehr ist es ein Hinweis auf ein Wort, dass für dass Mass ein außergewöhnliche strukturelle Form widerspiegelt, wie beispielsweise der Name einer interviewten Person, der bei jeder Aussage im Interview wieder genannt wird und deshalb eine hohe Frequenz besitzt.\\
+Ein weiteres Mittel um Informationen zu den gefundenen Wörtern aufzubereiten ist der Ansatz der Zeitreihenanalyse, der im Rahmen dieser Arbeit nicht weiter verfolgt werden konnte. Insbesondere zur Visualisierung von Frequenzverläufen einzelner Wörter scheint dies geeignet.\\
+Ein weiteres in dieser Arbeit nicht weiter behandeltes Mittel um die Qualität der Ergebnisse zu verbessern ist die Überarbeitung der Liste an genutzten Quellen. Diese, so lassen interessante Wörter wie \emph{Zoo Leipzig} vermuten, haben teils einen regionalen sowie thematischen Schwerpunkt, der bei einer Anzahl von ungefähr 250 Quellen am Tag zu verzerrten Ergebnissen führen kann. Die Auswahl der Quellen scheint für folgende Arbeiten ein interessanter Untersuchungsgegenstand zu sein.
 
 
 
 % LITERATUR ####################################################################################
-\nocite{*}%alle nicht aufgeführte Literatur auch auffuehren
+%\nocite{*}%alle nicht aufgeführte Literatur auch auffuehren
 \bibliographystyle{plaindin} %alphadin_martin
 \bibliography{wortschatzZeitgeistLit} 
 

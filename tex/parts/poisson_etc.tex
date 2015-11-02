@@ -67,7 +67,7 @@ Die Formel~\ref{equ.poisson_mass} wurde im praktischen Teil dieser Arbeit genutz
 \end{figure}
 
 
-\subsubsection{Bemerkungen zur Berechnung des Poisson-Maßes}
+\subsubsection{Bemerkungen zur Berechnung des Poisson-Maßes}\label{poisson_old}
 Die derzeitige Implementierung im Wortschatzporjekt der Universität Leipzig benutzt als Normierungsfaktor nicht die Anzahl aller Tokens im Tagesbericht. Auch zur Bestimmung des relativen Anteils eines Token am Jahreskorpus wird nicht die Anzahl der aller Tokens im Jahreskorpus, sondern die Anzahl der Sätze im Jahreskorpus verwendet. Da bei der verwendeten Zahl von Sätzen das Verhältnis der Anzahl der Wörter zu der Anzahl der Sätze als konstant anzunehmen ist ($\approx 10$), scheint dies gerechtfertigt wie in~\ref{equ.word_sentence} formalisiert. 
 \begin{equation}\label{equ.word_sentence}
 \frac{|\text{Sätze}_{heute}|}{|\text{Sätze}_{jahr}|} \approx \frac{|Token_{heute}|}{|Token_{Jahr}|}
@@ -94,10 +94,11 @@ Die Abbildung~\ref{pic.tfid_mass} verdeutlicht zwei Auswirkungen auf das Finden 
 Die rote Linie repräsentiert das Auftreten eines Worten an alle Tagen des Referenzkorpus. Die anderen Geraden bilden eine repräsentative Auswahl an weiteren Anteilen des Wortes an Tagen im Referenzjahr.\\
 
 \section{Termfrequenz inverse Dokumentenfrequenz inverse Quellenfrequenz (tf-idf-isf)}
-\emph{Idee: } Wörter sind dann interessant, wenn sie an einem Tag in möglichst vielen verschiedenen Quellen gennant werden.\\
+Die Idee dieses Maßes ist, dass Wörter dann interessant sind, wenn sie an einem Tag in möglichst vielen verschiedenen Quellen gennant werden.\\
 Als Quelle definieren wir die Serveradresse einer Quelle. Diese wird mittels eines regulären Ausdrucks aus den zugeordneten Quellen in der MySQL-Datenbank ermittelt. Als Gesamtzahl der Quellen verwenden wir alle an einem Tag den Wörtern zugeordnete Quellen.\\
 Das entstandene Signifikanzmaß wird in Gleichung~\ref{equ.tfidfsf} definiert.
 \begin{equation}\label{equ.tfidfsf}
-sig_{tf idf isf}(w) = sig_{tf idf}(w) \cdot \log ( \frac{Q_d}{q_d(w)})
+sig_{tf idf isf}(w) = sig_{tf idf}(w) \cdot \log ( 1- \frac{q_d(w)}{Q_d})
 \end{equation}
-Analog zur inversen Dokumentenfrequenz wird also das tf-idf-Signifikanzmaß mit dem Logarithmus der inversen relativen Anzahl der Quellenfrequenz multipliziert. $Q_d$ ist die Anzahl aller erwähnten Quellen an einem Tag $d$ und $q_d()$ bildet ein Wort auf die Anzahl der Quellen ab, in denen das Wort an Tag $d$  erwähnt wird. 
+Analog zur inversen Dokumentenfrequenz wird also das tf-idf-Signifikanzmaß mit dem Logarithmus der inversen relativen Anzahl der Quellenfrequenz multipliziert. $Q_d$ ist die Anzahl aller erwähnten Quellen an einem Tag $d$ und $q_d()$ bildet ein Wort auf die Anzahl der Quellen ab, in denen das Wort an Tag $d$  erwähnt wird.\\
+In dieser Arbeit wurde der Ansatz aufgrund von zu langen Berechnungszeiten für alle Wörter verworfen. Als Mittel zu Verbesserung von durch andere Maße erstellten Top-Wort-Listen wird der Wert der Quellenfrequenz im Abschnit~\ref{schluss} diskutiert.

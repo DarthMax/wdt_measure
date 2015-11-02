@@ -69,23 +69,25 @@ get_measures_from_day <- function (date, measure, limit) {
 }
 
 get_z_value<- function() {
+  query <- "SELECT @threshold:=(
+    SELECT AVG(mean)
+        FROM deu_news_2014.aliss15a_words
+        WHERE relative_document_frequency < 0.1
+);"
+  response = dbSendQuery(mydb, query)
+  fetch(response, n=-1)
   query <- "SELECT
-now.z_score,
-now_daily_words.freq,
-now.relative_freq,
-ref_aliss.mean,
-ref_aliss.standard_derivation,
-ref_aliss.relative_document_frequency,
-ref.word,
-now_words.word
-FROM aliss15a_daily_words as now
-JOIN daily_words as now_daily_words on now.w_id = now_daily_words.w_id and now.date = now_daily_words.date
-JOIN words as now_words on now_words.w_id = now.w_id
-JOIN deu_news_2014.words as ref on now_words.word = ref.word
-JOIN deu_news_2014.aliss15a_words as ref_aliss on ref.w_id = ref_aliss.w_id
-WHERE now.date=Date('2015-03-25') AND ((now.relative_freq > (@threshold*10) AND ref_aliss.relative_document_frequency < 0.1) OR ref_aliss.relative_document_frequency >= 0.1)
-ORDER BY now.z_score desc
-LIMIT 100;"
+            now.z_score,
+            now_daily_words.freq,
+            now_words.word
+        FROM aliss15a_daily_words as now
+        JOIN daily_words as now_daily_words on now.w_id = now_daily_words.w_id and now.date = now_daily_words.date
+        JOIN words as now_words on now_words.w_id = now.w_id
+        JOIN deu_news_2014.words as ref on now_words.word = ref.word
+        JOIN deu_news_2014.aliss15a_words as ref_aliss on ref.w_id = ref_aliss.w_id
+        WHERE now.date=Date('2015-10-31') AND ((now.relative_freq > (@threshold*10) AND ref_aliss.relative_document_frequency < 0.1) OR ref_aliss.relative_document_frequency >= 0.1)
+        ORDER BY now.z_score desc
+        LIMIT 100;"
   response = dbSendQuery(mydb, query)
   fetch(response, n=-1)
 }
@@ -98,7 +100,7 @@ get_relwindow <- function() {
 1/365
 # Clear Resultset
 # dbClearResult(dbListResults(mydb)[[1]])
-day <- "2015-03-25"
+day <- "2015-10-31"
 tf_idf <- get_measures_from_day(day, "dw.tf_idf", "100")
 poisson <- get_measures_from_day(day, "dw.poisson", "100")
 poisson_old <- get_measures_from_day(day, "daily_words.poisson", "100")
@@ -106,6 +108,8 @@ freqratio <- get_measures_from_day(day, "dw.freqratio", "100")
 freqratio_old <- get_measures_from_day(day, "daily_words.freqratio", "100")
 lin_filt_freq <- get_measures_from_day(day, "lin_filt_freq", "100")
 z_score <- get_z_value()
+
+
 relWindow <- get_relwindow()
 
 allInOne <- as.data.frame(poisson[,c("word")])
@@ -161,6 +165,3 @@ xtable(average_overlap_data, label = 'AvarageOverlapComparison', caption = 'Avar
 #header for tsv (to plot graph with d3
 colnames(average_overlap_data) <- c("source", "target", "value")
 write.table(average_overlap_data, file='Projects/Webprojects/wortschatzMitNeuemGraph/cooc-example/comparison.tsv', quote=FALSE, sep='\t',row.names = F)
-
-
-
